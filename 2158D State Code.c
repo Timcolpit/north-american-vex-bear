@@ -90,35 +90,15 @@ void moveIntake(int direction) {
 		motor[takeLeft]	   = FULL_POWER * direction;
 		motor[takeRight]   = FULL_POWER * direction;
 	}
-	/*
+}
 		void turnDriveR(int direction, int timer=0) {
 	// Check for function input error
 	if(direction == 1 || direction == -1 || direction == 0){
 		// Right Turn
 		motor[frontRightMotor]	 = FULL_POWER * direction;
-		motor[frontLeftMotor] 	 = HALF_POWER * direction;
+		motor[frontLeftMotor] 	 = -FULL_POWER * direction;
 		motor[backRightMotor]	   = FULL_POWER * direction;
-		motor[backLeftMotor]	   = HALF_POWER * direction;
-	}
-
-	if(timer != 0) {
-		// Wait ?timer? ms
-		wait1Msec(timer);
-
-		// Stop
-		motor[frontRightMotor]	 = STOP;
-		motor[frontLeftMotor] 	 = STOP;
-		motor[backRightMotor]	   = STOP;
-		motor[backLeftMotor]	   = STOP;
-	}
-	void turnDriveL(int direction, int timer=0) {
-	// Check for function input error
-	if(direction == 1 || direction == -1 || direction == 0){
-		// Move at 100% power
-		motor[frontRightMotor]	 = HALF_POWER * direction;
-		motor[frontLeftMotor] 	 = FULL_POWER * direction;
-		motor[backRightMotor]	   = HALF_POWER * direction;
-		motor[backLeftMotor]	   = FULL_POWER * direction;
+		motor[backLeftMotor]	   = -FULL_POWER * direction;
 	}
 
 	if(timer != 0) {
@@ -132,7 +112,27 @@ void moveIntake(int direction) {
 		motor[backLeftMotor]	   = STOP;
 	}
 }
-*/
+
+	void turnDriveL(int direction, int timer=0) {
+	// Check for function input error
+	if(direction == 1 || direction == -1 || direction == 0){
+		// Move at 100% power
+		motor[frontRightMotor]	 = -FULL_POWER * direction;
+		motor[frontLeftMotor] 	 = FULL_POWER * direction;
+		motor[backRightMotor]	   = -FULL_POWER * direction;
+		motor[backLeftMotor]	   = FULL_POWER * direction;
+	}
+
+	if(timer != 0) {
+		// Wait ?timer? ms
+		wait1Msec(timer);
+
+		// Stop
+		motor[frontRightMotor]	 = STOP;
+		motor[frontLeftMotor] 	 = STOP;
+		motor[backRightMotor]	   = STOP;
+		motor[backLeftMotor]	   = STOP;
+	}
 }
 
 
@@ -177,7 +177,7 @@ void pre_auton()
 		displayNextLCDString(backupBattery);
 
 		//Short delay for the LCD refresh rate
-		wait1Msec(100);
+		waitForPress();
 
 
   clearLCDLine(0); //Clear LCD
@@ -250,7 +250,13 @@ void pre_auton()
 		programChoice = 2;
     break;
 
-  default:
+	case 2: //Choice 3 from LCD
+    displayLCDCenteredString(0, "Autonomous 2");
+    displayLCDCenteredString(1, "is running!");
+		programChoice = 3;
+    break;
+
+    default:
     displayLCDCenteredString(0, "No valid choice");
     displayLCDCenteredString(1, "was made!");
     break;
@@ -314,11 +320,16 @@ task autonomous()
 
     //Stop robot for reposition 90 degrees
     moveDrive(0, 3000);
-
+}
 		//Move robot in new direction
     moveDrive(1, 7500);
 
+  //This doesn't compile
+    /*
+	else if(programChoice ==3) {
+		moveDrive(0);
 
+/*
 
 
 	}
