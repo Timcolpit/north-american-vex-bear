@@ -2,7 +2,7 @@
 #pragma config(Sensor, dgtl2,  hook2,          sensorDigitalOut)
 #pragma config(Sensor, dgtl3,  pistonLock1,    sensorDigitalOut)
 #pragma config(Sensor, dgtl4,  pistonLock2,    sensorDigitalOut)
-#pragma config(Motor,  port1,           frontRightMotor, tmotorVex393, openLoop, reversed)
+#pragma config(Motor,  port1,  frontRightMotor, tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port2,           backRightMotor, tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port3,           backLeftMotor, tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port4,           bottomRightTower, tmotorVex393, openLoop, reversed)
