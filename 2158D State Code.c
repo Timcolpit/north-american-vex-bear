@@ -221,6 +221,7 @@ task autonomous()
 {
 //goal side of bump
 
+    // Autonomous 1
 	if(programChoice == 1){
 		// Move forward to first point
 		moveDrive(1, 500);
@@ -252,29 +253,16 @@ task autonomous()
 		wait1Msec(50000);
 	}
 
+    // Autonomous 2
 	else if(programChoice == 2) {
 	//move robot forward
-	motor[frontRightMotor] = 127;
-	motor[frontLeftMotor] = 127;
-	motor[backRightMotor] = 127;
-	motor[backLeftMotor] = 127;
-	wait1Msec(750);
-//stop Robot and intake balls
-	motor[frontRightMotor] = 0;
-	motor[frontLeftMotor] = 0;
-	motor[backRightMotor] = 0;
-	motor[backLeftMotor] = 0;
-	motor[takeRight] = 127;
-	motor[takeLeft] = 127;
+    moveDrive(1, 750);
+
+    //stop Robot and intake balls
+    moveIntake(1);
 	wait1Msec(750);
 
-	motor[frontRightMotor] = -127;
-	motor[frontLeftMotor] = -127;
-	motor[backRightMotor] = -127;
-	motor[backLeftMotor] = -127;
-	wait1Msec(750);
-
-
+    moveDive(-1, 750);
 	}
 }
 
