@@ -211,7 +211,7 @@ void pre_auton()
       break;
 
     case 1: //Display second choice
-      displayLCDCenteredString(0, "Hang auto");
+      displayLCDCenteredString(0, " Blue Hang auto");
       displayLCDCenteredString(1, "<     Enter    >");
       waitForPress();
       //Increment or decrement "count" based on button press
@@ -221,6 +221,21 @@ void pre_auton()
         count--;
       }
       else if(nLCDButtons == rightButton)
+      {
+        waitForRelease();
+        count--;
+      }
+      break;
+    case 2: //display 3rd choice
+      displayLCDCenteredString(0, "red Hang auto");
+      displayLCDCenteredString(1,"<     Enter    >");
+
+      if(nLCDButtons == rightButton)
+      {
+        waitForRelease();
+        count--;
+      }
+      else if(nLCDButtons == leftButton)
       {
         waitForRelease();
         count--;
@@ -239,19 +254,19 @@ void pre_auton()
 
   switch(count) {  //pick auto, display
   case 0: //Choice 1 from LCD
-    displayLCDCenteredString(0, "Goal Side Autonomous");
+    displayLCDCenteredString(0, "Goal Side Auto");
     displayLCDCenteredString(1, "is running!");
     programChoice = 1;
     break;
 
   case 1: //Choice 2 from LCD
-    displayLCDCenteredString(0, "Autonomous 2");
+    displayLCDCenteredString(0, "Blue Hang Auto");
     displayLCDCenteredString(1, "is running!");
 		programChoice = 2;
     break;
 
 	case 2: //Choice 3 from LCD
-    displayLCDCenteredString(0, "Autonomous 2");
+    displayLCDCenteredString(0, "Red Hang Auto");
     displayLCDCenteredString(1, "is running!");
 		programChoice = 3;
     break;
@@ -320,16 +335,13 @@ task autonomous()
 
     //Stop robot for reposition 90 degrees
     moveDrive(0, 3000);
-}
+
 		//Move robot in new direction
     moveDrive(1, 7500);
-
-  //This doesn't compile
-    /*
+}
+   //Autonomous 3
 	else if(programChoice ==3) {
 		moveDrive(0);
-
-/*
 
 
 	}
