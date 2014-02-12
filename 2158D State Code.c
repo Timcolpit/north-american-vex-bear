@@ -108,7 +108,7 @@ void waitForRelease()
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// � � � � � � � � � � � � �Pre-Autonomous Functions
+// Pre-Autonomous Functions
 //
 // You may want to perform some actions before the competition starts. Do them in the
 // following function.
@@ -119,7 +119,7 @@ void pre_auton()
 {
 		//Display the Primary Robot battery voltage
 		displayLCDString(0, 0, "Primary: ");
-		sprintf(mainBattery, "%1.2f%c", nImmediateBatteryLevel/1000.0,'V'); //Build the value to be displayed
+		sprintf(mainBattery, "%1.2f%c", nImmediateBatteryLevel/1000.0, 'V'); //Build the value to be displayed
 		displayNextLCDString(mainBattery);
 
 		//Display the Backup battery voltage
@@ -130,22 +130,24 @@ void pre_auton()
 		//Short delay for the LCD refresh rate
 		wait1Msec(100);
 
- //Clear LCD
-  clearLCDLine(0);
+ 
+  clearLCDLine(0); //Clear LCD
   clearLCDLine(1);
+  
   //displayLCDCenteredString(0, "Test");
   //Declare count variable to keep track of our choice
+  
   int count = 0;
-  //Loop while center button is not pressed
+  
   while(nLCDButtons != centerButton)
   {
     //Switch case that allows the user to choose from 2 different options
     switch(count){
-    case 0:
-      //Display first choice
+    case 0: //Display first choice
       displayLCDCenteredString(0, "Goal Auto");
       displayLCDCenteredString(1, "<     Enter    >");
       waitForPress();
+        
       //Increment or decrement "count" based on button press
       if(nLCDButtons == leftButton)
       {
@@ -159,8 +161,7 @@ void pre_auton()
       }
       break;
 
-    case 1:
-      //Display second choice
+    case 1: //Display second choice
       displayLCDCenteredString(0, "Hang auto");
       displayLCDCenteredString(1, "<     Enter    >");
       waitForPress();
@@ -186,22 +187,21 @@ void pre_auton()
   //Clear LCD
   clearLCDLine(0);
   clearLCDLine(1);
-  //Switch Case that actually runs the user choice
-  switch(count){
-  case 0:
-    //If count = 0, run the code correspoinding with choice 1
+  
+  switch(count) {  //pick auto, display
+  case 0: //Choice 1 from LCD
     displayLCDCenteredString(0, "Goal Side Autonomous");
     displayLCDCenteredString(1, "is running!");
     programChoice = 1;
     break;
 
-  case 1:
-    //If count = 1, run the code correspoinding with choice 2
+  case 1: //Choice 2 from LCD
     displayLCDCenteredString(0, "Autonomous 2");
     displayLCDCenteredString(1, "is running!");
 		programChoice = 2;
     break;
-
+      
+  default:
     displayLCDCenteredString(0, "No valid choice");
     displayLCDCenteredString(1, "was made!");
     break;
@@ -211,7 +211,7 @@ void pre_auton()
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// � � � � � � � � � � � � � � � � Autonomous Task
+// Autonomous Task
 //
 // This task is used to control your robot during the autonomous phase of a VEX Competition.
 // You must modify the code to add your own robot specific commands here.
@@ -255,13 +255,12 @@ task autonomous()
 
     // Autonomous 2
 	else if(programChoice == 2) {
-	//move robot forward
+	  //move robot forward
     moveDrive(1, 750);
 
     //stop Robot and intake balls
     moveIntake(1);
-	wait1Msec(750);
-
+	  wait1Msec(750);
     moveDrive(-1, 750);
 	}
 }
@@ -270,10 +269,9 @@ task autonomous()
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// � � � � � � � � � � � � � � � � User Control Task
+// User Control Task
 //
-// This task is used to control your robot during the user control phase of a VEX Competition.
-// You must modify the code to add your own robot specific commands here.
+// Functions for lift, drive, intake, and pneumatics.
 //
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -281,7 +279,7 @@ task autonomous()
 task usercontrol() {
 	while(1 == 1) {
 
-		/*������ Drivetrain ������*/
+		/* Drivetrain */
 
  		//Right side of the robot is controlled by the right joystick, Y-axis
 		motor[frontRightMotor]	= vexRT[Ch2];
@@ -291,22 +289,17 @@ task usercontrol() {
 		motor[frontLeftMotor]	  = vexRT[Ch3];
 		motor[backLeftMotor]	  = vexRT[Ch3];
 
-		/*����������������-*/
 
 
-		/*������ Button Control ������*/
+		/* Button Control */
 
-		//�- Arm
+		// Arm
 
-		// If button 5U is pressed
 		if(vexRT[Btn5U]) {
-			// Move arm up
-			moveArm(1);
+			moveArm(1); // Move arm up
 		}
-		// If button 5D is pressed
 		else if(vexRT[Btn5D]) {
-			// Move arm down
-			moveArm(-1);
+			moveArm(-1); // Move arm down
 		}
 		// If neither buttons 5U or 5D are pressed
 		else {
@@ -318,19 +311,15 @@ task usercontrol() {
 		}
 
 
-		//� Intake
+		// Intake
 
-		// If button 6U is pressed
 		if (vexRT[Btn6U]) {
-			// Intake
-			moveIntake(1);
+			moveIntake(1); //runs intake, pull
 		}
 		else if (vexRT[Btn6D]) {
-			// Output
-			moveIntake(-1);
+			moveIntake(-1); //runs intake, push
 		}
 		else {
-			// Stop intake movement
 			moveIntake(0);
 		}
 
@@ -339,13 +328,12 @@ task usercontrol() {
 			SensorValue[hook1] = 1;
 			SensorValue[hook2] = 1;
 		}
-
 		else if(vexRT[Btn7D]) {
 			// Disengage solenoid
 			SensorValue[hook1] = 0;
 			SensorValue[hook2] = 0;
 		}
-
+    
 		if(vexRT[Btn8U]) {
 			//activate lock
 			SensorValue[pistonLock1] = 1;
@@ -355,7 +343,5 @@ task usercontrol() {
 			SensorValue[pistonLock1] = 0;
 			SensorValue[pistonLock2] = 0;
 		}
-
-		/*���������������-���-*/
 	}
 }
