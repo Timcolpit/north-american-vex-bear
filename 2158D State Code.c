@@ -306,10 +306,10 @@ task autonomous()
     moveDrive(-1, 750);
 
     //Stop robot for reposition 90 degrees
-    moveDrive(0, 3000)
+    moveDrive(0, 3000);
 
 		//Move robot in new direction
-    moveDrive(1, 750)
+    moveDrive(1, 7500);
 
 
 
