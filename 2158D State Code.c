@@ -89,6 +89,48 @@ void moveIntake(int direction) {
 		motor[takeLeft]	   = FULL_POWER * direction;
 		motor[takeRight]   = FULL_POWER * direction;
 	}
+	void turnDriveR(int direction, int timer=0) {
+	// Check for function input error
+	if(direction == 1 || direction == -1 || direction == 0){
+		// Right Turn
+		motor[frontRightMotor]	 = FULL_POWER * direction;
+		motor[frontLeftMotor] 	 = HALF_POWER * direction;
+		motor[backRightMotor]	   = FULL_POWER * direction;
+		motor[backLeftMotor]	   = HALF_POWER * direction;
+	}
+
+	if(timer != 0) {
+		// Wait �timer� ms
+		wait1Msec(timer);
+
+		// Stop
+		motor[frontRightMotor]	 = STOP;
+		motor[frontLeftMotor] 	 = STOP;
+		motor[backRightMotor]	   = STOP;
+		motor[backLeftMotor]	   = STOP;
+	}
+	void turnDriveL(int direction, int timer=0) {
+	// Check for function input error
+	if(direction == 1 || direction == -1 || direction == 0){
+		// Move at 100% power
+		motor[frontRightMotor]	 = HALF_POWER * direction;
+		motor[frontLeftMotor] 	 = FULL_POWER * direction;
+		motor[backRightMotor]	   = HALF_POWER * direction;
+		motor[backLeftMotor]	   = FULL_POWER * direction;
+	}
+
+	if(timer != 0) {
+		// Wait �timer� ms
+		wait1Msec(timer);
+
+		// Stop
+		motor[frontRightMotor]	 = STOP;
+		motor[frontLeftMotor] 	 = STOP;
+		motor[backRightMotor]	   = STOP;
+		motor[backLeftMotor]	   = STOP;
+	}
+}
+}
 }
 //Wait for Press--------------------------------------------------
 void waitForPress()
@@ -130,15 +172,15 @@ void pre_auton()
 		//Short delay for the LCD refresh rate
 		wait1Msec(100);
 
- 
+
   clearLCDLine(0); //Clear LCD
   clearLCDLine(1);
-  
+
   //displayLCDCenteredString(0, "Test");
   //Declare count variable to keep track of our choice
-  
+
   int count = 0;
-  
+
   while(nLCDButtons != centerButton)
   {
     //Switch case that allows the user to choose from 2 different options
@@ -147,7 +189,7 @@ void pre_auton()
       displayLCDCenteredString(0, "Goal Auto");
       displayLCDCenteredString(1, "<     Enter    >");
       waitForPress();
-        
+
       //Increment or decrement "count" based on button press
       if(nLCDButtons == leftButton)
       {
@@ -187,7 +229,7 @@ void pre_auton()
   //Clear LCD
   clearLCDLine(0);
   clearLCDLine(1);
-  
+
   switch(count) {  //pick auto, display
   case 0: //Choice 1 from LCD
     displayLCDCenteredString(0, "Goal Side Autonomous");
@@ -200,7 +242,7 @@ void pre_auton()
     displayLCDCenteredString(1, "is running!");
 		programChoice = 2;
     break;
-      
+
   default:
     displayLCDCenteredString(0, "No valid choice");
     displayLCDCenteredString(1, "was made!");
@@ -262,6 +304,16 @@ task autonomous()
     moveIntake(1);
 	  wait1Msec(750);
     moveDrive(-1, 750);
+
+    //Stop robot for reposition 90 degrees
+    moveDrive(0, 3000)
+
+		//Move robot in new direction
+    moveDrive(1, 750)
+
+
+
+
 	}
 }
 
@@ -333,7 +385,7 @@ task usercontrol() {
 			SensorValue[hook1] = 0;
 			SensorValue[hook2] = 0;
 		}
-    
+
 		if(vexRT[Btn8U]) {
 			//activate lock
 			SensorValue[pistonLock1] = 1;
