@@ -262,7 +262,7 @@ task autonomous()
     moveIntake(1);
 	wait1Msec(750);
 
-    moveDive(-1, 750);
+    moveDrive(-1, 750);
 	}
 }
 
