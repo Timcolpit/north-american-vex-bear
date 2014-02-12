@@ -26,6 +26,7 @@ string backupBattery;
 
 short programChoice;
 
+
 #pragma platform(VEX)
 
 //Competition Control and Duration Settings
@@ -89,49 +90,8 @@ void moveIntake(int direction) {
 		motor[takeLeft]	   = FULL_POWER * direction;
 		motor[takeRight]   = FULL_POWER * direction;
 	}
-	void turnDriveR(int direction, int timer=0) {
-	// Check for function input error
-	if(direction == 1 || direction == -1 || direction == 0){
-		// Right Turn
-		motor[frontRightMotor]	 = FULL_POWER * direction;
-		motor[frontLeftMotor] 	 = HALF_POWER * direction;
-		motor[backRightMotor]	   = FULL_POWER * direction;
-		motor[backLeftMotor]	   = HALF_POWER * direction;
-	}
-
-	if(timer != 0) {
-		// Wait �timer� ms
-		wait1Msec(timer);
-
-		// Stop
-		motor[frontRightMotor]	 = STOP;
-		motor[frontLeftMotor] 	 = STOP;
-		motor[backRightMotor]	   = STOP;
-		motor[backLeftMotor]	   = STOP;
-	}
-	void turnDriveL(int direction, int timer=0) {
-	// Check for function input error
-	if(direction == 1 || direction == -1 || direction == 0){
-		// Move at 100% power
-		motor[frontRightMotor]	 = HALF_POWER * direction;
-		motor[frontLeftMotor] 	 = FULL_POWER * direction;
-		motor[backRightMotor]	   = HALF_POWER * direction;
-		motor[backLeftMotor]	   = FULL_POWER * direction;
-	}
-
-	if(timer != 0) {
-		// Wait �timer� ms
-		wait1Msec(timer);
-
-		// Stop
-		motor[frontRightMotor]	 = STOP;
-		motor[frontLeftMotor] 	 = STOP;
-		motor[backRightMotor]	   = STOP;
-		motor[backLeftMotor]	   = STOP;
-	}
 }
-}
-}
+
 //Wait for Press--------------------------------------------------
 void waitForPress()
 {
