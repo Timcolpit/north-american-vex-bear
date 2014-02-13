@@ -234,11 +234,11 @@ void pre_auton()
       displayLCDCenteredString(1,"<     Enter    >");
 
 
-      else if(nLCDButtons == leftButton) {
+      if(nLCDButtons == leftButton) {
         waitForRelease();
         count = 1;
       }
-      if(nLCDButtons == rightButton) {
+      else if(nLCDButtons == rightButton) {
         waitForRelease();
         count = 0;
       }
