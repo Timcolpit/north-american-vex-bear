@@ -91,7 +91,7 @@ void moveIntake(int direction) {
 		motor[takeRight]   = FULL_POWER * direction;
 	}
 }
-		void turnDriveR(int direction, int timer=0) {
+		void turnDrive(int direction, int timer=0) {
 	// Check for function input error
 	if(direction == 1 || direction == -1 || direction == 0){
 		// Right Turn
@@ -113,27 +113,6 @@ void moveIntake(int direction) {
 	}
 }
 
-	void turnDriveL(int direction, int timer=0) {
-	// Check for function input error
-	if(direction == 1 || direction == -1 || direction == 0){
-		// Move at 100% power
-		motor[frontRightMotor]	 = -FULL_POWER * direction;
-		motor[frontLeftMotor] 	 = FULL_POWER * direction;
-		motor[backRightMotor]	   = -FULL_POWER * direction;
-		motor[backLeftMotor]	   = FULL_POWER * direction;
-	}
-
-	if(timer != 0) {
-		// Wait ?timer? ms
-		wait1Msec(timer);
-
-		// Stop
-		motor[frontRightMotor]	 = STOP;
-		motor[frontLeftMotor] 	 = STOP;
-		motor[backRightMotor]	   = STOP;
-		motor[backLeftMotor]	   = STOP;
-	}
-}
 
 
 //Wait for Press--------------------------------------------------
@@ -338,7 +317,7 @@ task autonomous()
     moveDrive(1, 750);
 
     //robot Turn 90 degrees left
-   turnDriveL(1, 750);
+   turnDrive(1, 750);
 
    //Lift arm up a tig
 	moveArm(1,250);
@@ -368,7 +347,7 @@ task autonomous()
     moveDrive(1, 750);
 
     //robot Turn 90 degrees left
-   turnDriveR(1, 750);
+   turnDrive(-1, 750);
 
    //Lift arm up a tig
 	moveArm(1,250);
