@@ -21,11 +21,11 @@
 const short leftButton = 1;
 const short centerButton = 2;
 const short rightButton = 4;
+
 string mainBattery;
 string backupBattery;
 
 short programChoice;
-
 
 #pragma platform(VEX)
 
@@ -179,9 +179,11 @@ void pre_auton()
 		//Short delay for the LCD refresh rate
 		waitForPress();
 
-
-  clearLCDLine(0); //Clear LCD
+	// Clear LCD
+  clearLCDLine(0);
   clearLCDLine(1);
+
+  wait1Msec(500);
 
   //displayLCDCenteredString(0, "Test");
   //Declare count variable to keep track of our choice
@@ -201,12 +203,13 @@ void pre_auton()
       if(nLCDButtons == leftButton)
       {
         waitForRelease();
-        count = 1;
+        count = 2;
       }
+
       else if(nLCDButtons == rightButton)
       {
         waitForRelease();
-        count++;
+        count = 1;
       }
       break;
 
@@ -215,30 +218,29 @@ void pre_auton()
       displayLCDCenteredString(1, "<     Enter    >");
       waitForPress();
       //Increment or decrement "count" based on button press
-      if(nLCDButtons == leftButton)
-      {
+      if(nLCDButtons == leftButton) {
         waitForRelease();
-        count--;
+        count = 0;
       }
-      else if(nLCDButtons == rightButton)
-      {
+
+      else if(nLCDButtons == rightButton) {
         waitForRelease();
-        count--;
+        count = 2;
       }
       break;
+
     case 2: //display 3rd choice
       displayLCDCenteredString(0, "red Hang auto");
       displayLCDCenteredString(1,"<     Enter    >");
 
-      if(nLCDButtons == rightButton)
-      {
+
+      else if(nLCDButtons == leftButton) {
         waitForRelease();
-        count--;
+        count = 1;
       }
-      else if(nLCDButtons == leftButton)
-      {
+      if(nLCDButtons == rightButton) {
         waitForRelease();
-        count--;
+        count = 0;
       }
       break;
 
@@ -305,7 +307,6 @@ task autonomous()
 		/* Not sure why this wait exists */
 		wait1Msec(750);
 
-		/* Do these never stop intentionally? */
 		// Outtake preload
 		moveIntake(-1);
 		wait1Msec(2000);
@@ -318,9 +319,6 @@ task autonomous()
 
 		// Move forward from new manually positioned angle
 		moveDrive(1, 1300);
-
-		/* Does this need to be here? */
-		wait1Msec(50000);
 	}
 
     // Autonomous 2
