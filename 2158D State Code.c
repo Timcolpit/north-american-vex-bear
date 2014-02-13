@@ -291,9 +291,9 @@ void pre_auton()
 /////////////////////////////////////////////////////////////////////////////////////////
 task autonomous()
 {
-//goal side of bump
 
-    // Autonomous 1
+
+    // goal side auto (auto 1)
 	if(programChoice == 1){
 		// Move forward to first point
 		moveDrive(1, 500);
@@ -321,7 +321,7 @@ task autonomous()
 		moveDrive(1, 1300);
 	}
 
-    // Autonomous 2
+    // Blue side hanging bar side of bump auto (auto 2)
 	else if(programChoice == 2) {
 	  //move robot forward
     moveDrive(1, 750);
@@ -335,11 +335,51 @@ task autonomous()
     moveDrive(0, 3000);
 
 		//Move robot in new direction
-    moveDrive(1, 7500);
+    moveDrive(1, 750);
+
+    //robot Turn 90 degrees left
+   turnDriveL(1, 750);
+
+   //Lift arm up a tig
+	moveArm(1,250);
+
+	//Move robot forward over the bump
+	moveDrive(1,1000);
+
+	//outtake preload
+	moveIntake(1);
+	wait1Msec(2000);
+
 }
-   //Autonomous 3
+   //Red side hanging bar side of bump auto (auto 3)
 	else if(programChoice ==3) {
-		moveDrive(0);
+		//move robot forward
+    moveDrive(1, 750);
+
+    //stop Robot and intake balls
+    moveIntake(1);
+	  wait1Msec(750);
+    moveDrive(-1, 750);
+
+    //Stop robot for reposition 90 degrees
+    moveDrive(0, 3000);
+
+		//Move robot in new direction
+    moveDrive(1, 750);
+
+    //robot Turn 90 degrees left
+   turnDriveR(1, 750);
+
+   //Lift arm up a tig
+	moveArm(1,250);
+
+	//Move robot forward over the bump
+	moveDrive(1,1000);
+
+	//outtake preload
+	moveIntake(1);
+	wait1Msec(2000);
+
 
 
 	}
