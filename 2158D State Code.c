@@ -94,7 +94,7 @@ void moveIntake(int direction) {
 		void turnDrive(int direction, int timer=0) {
 	// Check for function input error
 	if(direction == 1 || direction == -1 || direction == 0){
-		// Right Turn
+		// Default Left Turn
 		motor[frontRightMotor]	 = FULL_POWER * direction;
 		motor[frontLeftMotor] 	 = -FULL_POWER * direction;
 		motor[backRightMotor]	   = FULL_POWER * direction;
