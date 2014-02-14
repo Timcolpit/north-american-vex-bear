@@ -298,10 +298,12 @@ task autonomous()
 		moveDrive(-1, 1000);
 
 		//stop robot for 3s to reposition
-		moveDrive(0,3000)
+		moveDrive(0,3000);
 
-		// Move forward from new manually positioned angle
-		moveDrive(1, 1300);
+		//move robot forward at new angle
+		moveDrive(1,1300);
+
+
 	}
 
     // Blue side hanging bar side of bump auto (auto 2)
@@ -332,10 +334,10 @@ task autonomous()
 	moveDrive(1,1500);
 
 	//lift the arm all the way
-	moveArm(1,750)
+	moveArm(1,750);
 
 	//move forward alittle
-	moveDrive(1,250)
+	moveDrive(1,250);
 
 	//outtake preload
 	moveIntake(1);
@@ -370,10 +372,10 @@ task autonomous()
 	moveDrive(1,1500);
 
 	//move arm all the way up
-	moveArm(1,750)
+	moveArm(1,750);
 
 	//move arm up just a tig
-	moveDrive(1,250)
+	moveDrive(1,250);
 
 	//outtake preload
 	moveIntake(1);
@@ -441,6 +443,8 @@ task usercontrol() {
 		else {
 			moveIntake(0);
 		}
+
+			//*Pnumatics*//
 
 		if(vexRT[Btn7U]) {
 			// Engage solenoid
