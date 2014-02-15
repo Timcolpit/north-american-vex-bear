@@ -116,7 +116,22 @@ void moveIntake(int direction) {
 	}
 }
 
+// Move arm to user specified position
+void armToPos(int setpoint) {
+	int cur = SensorValue(sensorPotentiometer);
 
+	// While the current value is not close to the threshold
+	while(cur < setpoint - 0.05 && cur > setpoint + 0.05) {
+		cur = SensorValue(sensorPotentiometer);
+
+		if(cur < setpoint) {
+			moveArm(1);
+		}
+		else if(cur > setpoint) {
+			moveArm(-1);
+		}
+	}
+}
 
 //Wait for Press--------------------------------------------------
 void waitForPress()
@@ -297,8 +312,9 @@ task autonomous()
 		// Drive back to starting square
 		moveDrive(-1, 1000);
 
-		//stop robot for 3s to reposition
-		moveDrive(0,3000);
+		//stop robot for button press to reposition
+		//moveDrive(0,3000);
+		while (SensorValue[touchSensor] != 1){}
 
 		//move robot forward at new angle
 		moveDrive(1,1300);
@@ -319,7 +335,9 @@ task autonomous()
     moveDrive(-1, 750);
 
     //Stop robot for reposition 90 degrees
-    moveDrive(0, 3000);
+    //moveDrive(0, 3000);
+   	while (SensorValue[touchSensor] != 1){}
+
 
 		//Move robot in new direction
     moveDrive(1, 750);
@@ -357,7 +375,8 @@ task autonomous()
     moveDrive(-1, 750);
 
     //Stop robot for reposition 90 degrees
-    moveDrive(0, 3000);
+    //moveDrive(0, 3000);
+    while (SensorValue[touchSensor] != 1){}
 
 		//Move robot in new direction
     moveDrive(1, 750);
@@ -380,9 +399,6 @@ task autonomous()
 	//outtake preload
 	moveIntake(1);
 	wait1Msec(2000);
-
-
-
 	}
 }
 
@@ -465,6 +481,13 @@ task usercontrol() {
 		else if(vexRT[Btn8D]) {
 			SensorValue[pistonLock1] = 0;
 			SensorValue[pistonLock2] = 0;
+		}
+
+		if(vexRT[Btn8L]) {
+			armToPos(.5);
+		}
+		else if(vexRT[Btn8R]) {
+			armToPos(.2);
 		}
 	}
 }
