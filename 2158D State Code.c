@@ -100,8 +100,8 @@ void moveIntake(int direction) {
 		// Default Left Turn
 		motor[frontRightMotor]	 = FULL_POWER * direction;
 		motor[frontLeftMotor] 	 = -FULL_POWER * direction;
-		motor[backRightMotor]	   = FULL_POWER * direction;
-		motor[backLeftMotor]	   = -FULL_POWER * direction;
+		motor[backRightMotor]	 = FULL_POWER * direction;
+		motor[backLeftMotor]	 = -FULL_POWER * direction;
 	}
 
 	if(timer != 0) {
@@ -109,10 +109,10 @@ void moveIntake(int direction) {
 		wait1Msec(timer);
 
 		// Stop
-		motor[frontRightMotor]	 = STOP;
-		motor[frontLeftMotor] 	 = STOP;
-		motor[backRightMotor]	   = STOP;
-		motor[backLeftMotor]	   = STOP;
+		motor[frontRightMotor]   = STOP;
+		motor[frontLeftMotor]  	 = STOP;
+		motor[backRightMotor]    = STOP;
+		motor[backLeftMotor]     = STOP;
 	}
 }
 
@@ -325,80 +325,80 @@ task autonomous()
     // Blue side hanging bar side of bump auto (auto 2)
 	else if(programChoice == 2) {
 	  //move robot forward
-    moveDrive(1, 750);
+		 moveDrive(1, 750);
 
-    //stop Robot and intake balls
-    moveIntake(1);
-	  wait1Msec(750);
+    		 //stop Robot and intake balls
+    		 moveIntake(1);
+    	 
+		 wait1Msec(750);
 
-	  //move robot back to starting square
-    moveDrive(-1, 750);
+		 //move robot back to starting square
+	 	moveDrive(-1, 750);
 
-    //Stop robot for reposition 90 degrees
-    //moveDrive(0, 3000);
-   	while (SensorValue[touchSensor] != 1){}
+    	 	//Stop robot for reposition 90 degrees
+	 	//moveDrive(0, 3000);
+	 	while (SensorValue[touchSensor] != 1){}
 
 
 		//Move robot in new direction
-    moveDrive(1, 750);
+		moveDrive(1, 750);
 
-    //robot Turn 90 degrees left
-   turnDrive(1, 750);
+		 //robot Turn 90 degrees left
+   		turnDrive(1, 750);
 
-   //Lift arm up a tig
-	moveArm(1,500);
+   		//Lift arm up a tig
+		moveArm(1,500);
 
-	//Move robot forward over the bump
-	moveDrive(1,1500);
+		//Move robot forward over the bump
+		moveDrive(1,1500);
 
-	//lift the arm all the way
-	moveArm(1,750);
+		//lift the arm all the way
+		moveArm(1,750);
 
-	//move forward alittle
-	moveDrive(1,250);
+		//move forward alittle
+		moveDrive(1,250);
 
-	//outtake preload
-	moveIntake(1);
-	wait1Msec(2000);
-
-}
-   //Red side hanging bar side of bump auto (auto 3)
+		//outtake preload
+		moveIntake(1);
+		wait1Msec(2000);
+	}
+   	//Red side hanging bar side of bump auto (auto 3)
 	else if(programChoice ==3) {
 		//move robot forward
-    moveDrive(1, 750);
+    		moveDrive(1, 750);
 
-    //stop Robot and intake balls
-    moveIntake(1);
-	  wait1Msec(750);
+    		 //stop Robot and intake balls
+		 moveIntake(1);
+		 wait1Msec(750);
 
-	  //move drive back to original starting space
-    moveDrive(-1, 750);
+		 //move drive back to original starting space
+	 	 moveDrive(-1, 750);
 
-    //Stop robot for reposition 90 degrees
-    //moveDrive(0, 3000);
-    while (SensorValue[touchSensor] != 1){}
+    		 //Stop robot for reposition 90 degrees
+	  	 //moveDrive(0, 3000);
+	 	 while (SensorValue[touchSensor] != 1){}
 
 		//Move robot in new direction
-    moveDrive(1, 750);
+	 	moveDrive(1, 750);
 
-    //robot Turn 90 degrees Right
-   turnDrive(-1, 750);
+    		//robot Turn 90 degrees Right
+   		turnDrive(-1, 750);
 
-   //Lift arm up a tig
-	moveArm(1,500);
+   		//Lift arm up a tig
+		moveArm(1,500);
 
-	//Move robot forward over the bump
-	moveDrive(1,1500);
+		//Move robot forward over the bump
+		moveDrive(1,1500);
 
-	//move arm all the way up
-	moveArm(1,750);
+		//move arm all the way up
+	 	moveArm(1,750);
 
-	//move arm up just a tig
-	moveDrive(1,250);
+		//move arm up just a tig
+		moveDrive(1,250);
 
-	//outtake preload
-	moveIntake(1);
-	wait1Msec(2000);
+		//outtake preload
+		moveIntake(1);
+		wait1Msec(2000);
 	}
 }
 
@@ -423,8 +423,8 @@ task usercontrol() {
 		motor[backRightMotor] 	= vexRT[Ch2];
 
 		//Left side of the robot is controlled by the left joystick, Y-axis
-		motor[frontLeftMotor]	  = vexRT[Ch3];
-		motor[backLeftMotor]	  = vexRT[Ch3];
+		motor[frontLeftMotor]   = vexRT[Ch3];
+		motor[backLeftMotor]    = vexRT[Ch3];
 
 
 
