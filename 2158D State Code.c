@@ -6,7 +6,7 @@
 #pragma config(Sensor, dgtl4,  pistonLock2,    sensorDigitalOut)
 #pragma config(Sensor, dgtl5,  touchSensor,    sensorTouch)
 #pragma config(Motor,  port1,           frontRightMotor, tmotorVex393, openLoop)
-#pragma config(Motor,  port2,           backRightMotor, tmotorVex393, openLoop, reversed)
+#pragma config(Motor,  port2,           backRightMotor, tmotorVex393, openLoop)
 #pragma config(Motor,  port3,           backLeftMotor, tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port4,           bottomRightTower, tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port5,           bottomLeftTower, tmotorVex393, openLoop)
@@ -473,20 +473,25 @@ task usercontrol() {
 			SensorValue[hook2] = 0;
 		}
 
-		if(vexRT[Btn8U]) {
+		if(vexRT[Btn7L]) {
 			//activate lock
 			SensorValue[pistonLock1] = 1;
 			SensorValue[pistonLock2] = 1;
 		}
-		else if(vexRT[Btn8D]) {
+		else if(vexRT[Btn7R]) {
 			SensorValue[pistonLock1] = 0;
 			SensorValue[pistonLock2] = 0;
 		}
 
-		if(vexRT[Btn8L]) {
+		if(vexRT[Btn8U]) {
+			armToPos(.7);
+		}
+
+		else if(vexRT[Btn8D]) {
 			armToPos(.5);
 		}
-		else if(vexRT[Btn8R]) {
+
+		else if(vexRT[Btn8R])	{
 			armToPos(.2);
 		}
 	}
