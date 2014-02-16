@@ -160,6 +160,9 @@ void waitForRelease()
 
 void pre_auton()
 {
+
+	bLCDBacklight = true;	// Turn on LCD Backlight
+
 	clearLCDLine(0);
 	clearLCDLine(1);
 
@@ -227,8 +230,8 @@ void pre_auton()
       break;
 
     case 2: //display 3rd choice
-      displayLCDCenteredString(0, "red Hang auto");
-      displayLCDCenteredString(1,"<     Enter    >");
+      displayLCDCenteredString(0, "Red Hang auto");
+      displayLCDCenteredString(1, "<     Enter    >");
 
 
       if(nLCDButtons == leftButton) {
@@ -292,8 +295,15 @@ task autonomous()
 
     // goal side auto (auto 1)
 	if(programChoice == 1){
-		// Move forward to first point
-		moveDrive(1, 500);
+
+	// Move forward
+		moveDrive(1, 250);
+
+		//move back to pop out intake
+		moveDrive(-1,250);
+
+		//move to first position
+		moveDrive(1,500;
 
 		// Move arm up
 		moveArm(1, 750);
@@ -301,9 +311,8 @@ task autonomous()
 		// Move forward to second point
 		moveDrive(1, 500);
 
-		/* Not sure why this wait exists
+		// Wait a secound so that big ball is out of the way
 		wait1Msec(750);
-		*/
 
 		// Outtake preload
 		moveIntake(-1);
@@ -313,7 +322,8 @@ task autonomous()
 		moveDrive(-1, 1000);
 
 		//stop robot for button press to reposition
-		//moveDrive(0,3000);
+		/*moveDrive(0,3000); */
+
 		while (SensorValue[touchSensor] != 1){}
 
 		//move robot forward at new angle
@@ -324,11 +334,18 @@ task autonomous()
 
     // Blue side hanging bar side of bump auto (auto 2)
 	else if(programChoice == 2) {
-	  //move robot forward
-		 moveDrive(1, 750);
 
-    		 //stop Robot and intake balls
-    		 moveIntake(1);
+	  // Move forward
+		moveDrive(1, 250);
+
+		//move back to pop out intake
+		moveDrive(-1,250);
+
+		//move to first position
+		moveDrive(1,500;
+
+		 //stop Robot and intake balls
+ 		 moveIntake(1);
 
 		 wait1Msec(750);
 
@@ -364,10 +381,17 @@ task autonomous()
 	}
    	//Red side hanging bar side of bump auto (auto 3)
 	else if(programChoice ==3) {
-		//move robot forward
-    		moveDrive(1, 750);
 
-    		 //stop Robot and intake balls
+	// Move forward
+		moveDrive(1, 250);
+
+		//move back to pop out intake
+		moveDrive(-1,250);
+
+		//move to first position
+		moveDrive(1,500;
+
+		//stop Robot and intake balls
 		 moveIntake(1);
 		 wait1Msec(750);
 
