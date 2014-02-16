@@ -6,9 +6,9 @@
 #pragma config(Sensor, dgtl4,  pistonLock2,    sensorDigitalOut)
 #pragma config(Sensor, dgtl5,  touchSensor,    sensorTouch)
 #pragma config(Motor,  port1,           frontRightMotor, tmotorVex393, openLoop)
-#pragma config(Motor,  port2,           backRightMotor, tmotorVex393, openLoop)
+#pragma config(Motor,  port2,           backRightMotor, tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port3,           backLeftMotor, tmotorVex393, openLoop, reversed)
-#pragma config(Motor,  port4,           bottomRightTower, tmotorVex393, openLoop, reversed)
+#pragma config(Motor,  port4,           bottomRightTower, tmotorVex393, openLoop)
 #pragma config(Motor,  port5,           bottomLeftTower, tmotorVex393, openLoop)
 #pragma config(Motor,  port6,           takeLeft,      tmotorVex393, openLoop)
 #pragma config(Motor,  port7,           takeRight,     tmotorVex393, openLoop)
@@ -329,7 +329,7 @@ task autonomous()
 
     		 //stop Robot and intake balls
     		 moveIntake(1);
-    	 
+
 		 wait1Msec(750);
 
 		 //move robot back to starting square
