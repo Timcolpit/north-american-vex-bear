@@ -121,7 +121,7 @@ void armToPos(int setpoint) {
 	int cur = SensorValue(sensorPotentiometer);
 
 	// While the current value is not close to the threshold
-	while(cur < setpoint - 0.05 && cur > setpoint + 0.05) {
+	while(cur < setpoint - 0.05 || cur > setpoint + 0.05) {
 		cur = SensorValue(sensorPotentiometer);
 
 		if(cur < setpoint) {
