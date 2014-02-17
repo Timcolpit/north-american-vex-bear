@@ -1,10 +1,9 @@
 #pragma config(Sensor, in1,    potentiometer,  sensorPotentiometer)
-#pragma config(Sensor, in2,    accelerometer,  sensorAccelerometer)
 #pragma config(Sensor, dgtl3,  pistonLock1,    sensorDigitalOut)
 #pragma config(Sensor, dgtl4,  pistonLock2,    sensorDigitalOut)
 #pragma config(Sensor, dgtl5,  touchSensor,    sensorTouch)
 #pragma config(Motor,  port1,           frontRightMotor, tmotorVex393, openLoop)
-#pragma config(Motor,  port2,           backRightMotor, tmotorVex393, openLoop, reversed)
+#pragma config(Motor,  port2,           backRightMotor, tmotorVex393, openLoop)
 #pragma config(Motor,  port3,           backLeftMotor, tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port4,           bottomRightTower, tmotorVex393, openLoop)
 #pragma config(Motor,  port5,           bottomLeftTower, tmotorVex393, openLoop)
@@ -114,7 +113,7 @@ short programChoice;
 		motor[backLeftMotor]     = STOP;
 	}
 }
-
+/*
 // Move arm to user specified position
 void armToPos(int setpoint) {
 	int cur = SensorValue(potentiometer);
@@ -129,8 +128,9 @@ void armToPos(int setpoint) {
 		else if(cur > setpoint) {
 			moveArm(-1);
 		}
-	}
-}
+		*/
+
+
 
 //Wait for Press--------------------------------------------------
 void waitForPress()
@@ -496,39 +496,44 @@ task usercontrol() {
 			SensorValue[pistonLock2] = 0;
 		}
 
-		if(vexRT[Btn8U]) {
-			armToPos(.7);
+		if(vexRT[Btn8U]==1)
+		{
+			if(SensorValue(potentiometer) < 1700){
+				motor[topRightTower] = 127;
+				motor[topLeftTower] = 127;
+				motor[bottomLeftTower]= 127;
+				motor[bottomRightTower] = 127;
+			}
+			else if(SensorValue(potentiometer) > 1700){
+				motor[topRightTower] = 70;
+				motor[topLeftTower] = 70;
+				motor[bottomLeftTower]= 70;
+				motor[bottomRightTower] = 70;
+			}
+		}
+		else if(vexRT[Btn8D]==1)
+		{
+			if(SensorValue(potentiometer) < 1700){
+				motor[topRightTower] = -127;
+				motor[topLeftTower] = -127;
+				motor[bottomLeftTower]= -127;
+				motor[bottomRightTower] = -127;
+			}
+			else if(SensorValue(potentiometer) > 1700){
+				motor[topRightTower] = -70;
+				motor[topLeftTower] = -70;
+				motor[bottomLeftTower]= -70;
+				motor[bottomRightTower] = -70;
+			}
+		}
+		else
+		{
+			motor[topRightTower] = 10;
+				motor[topLeftTower] = 10;
+				motor[bottomLeftTower]= 10;
+				motor[bottomRightTower] = 10;
 		}
 
-		else if(vexRT[Btn8D]) {
-			armToPos(.5);
-		}
 
-		else if(vexRT[Btn8R])	{
-			armToPos(.2);
-		}
-
-
-		//below was sent from Robert, not sure how it fits in for poteniometer
-		/*
-		// Move arm to user specified position
-void armToPos(int setpoint) {
-	int cur = SensorValue(sensorPotentiometer);
-
-	// While the current value is not close to the threshold
-	while(cur < setpoint - 0.05 || cur > setpoint + 0.05) {
-		cur = SensorValue(sensorPotentiometer);
-
-		if(cur < setpoint) {
-			moveArm(1);
-		}
-		else if(cur > setpoint) {
-			moveArm(-1);
-		}
-                else
-                {
-                motor[dogemotor]=10;
-	}
-} */
 	}
 }
