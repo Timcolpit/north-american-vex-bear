@@ -1,7 +1,5 @@
 #pragma config(Sensor, in1,    potentiometer,  sensorPotentiometer)
 #pragma config(Sensor, in2,    accelerometer,  sensorAccelerometer)
-#pragma config(Sensor, dgtl1,  hook1,          sensorDigitalOut)
-#pragma config(Sensor, dgtl2,  hook2,          sensorDigitalOut)
 #pragma config(Sensor, dgtl3,  pistonLock1,    sensorDigitalOut)
 #pragma config(Sensor, dgtl4,  pistonLock2,    sensorDigitalOut)
 #pragma config(Sensor, dgtl5,  touchSensor,    sensorTouch)
@@ -39,8 +37,8 @@ short programChoice;
 
 #include "Vex_Competition_Includes.c" � //Main competition background code...do not modify!
 
-// Move drive at full power for �timer� milliseconds either forward (1) or backward (-1)
-void moveDrive(int direction, int timer=0) {
+	// Move drive at full power for �timer� milliseconds either forward (1) or backward (-1)
+	void moveDrive(int direction, int timer=0) {
 	// Check for function input error
 	if(direction == 1 || direction == -1 || direction == 0){
 		// Move at 100% power
@@ -62,8 +60,8 @@ void moveDrive(int direction, int timer=0) {
 	}
 }
 
-// Move arm at full power for �timer� milliseconds either forward (1) or backward (-1)
-void moveArm(int direction, int timer=0) {
+	// Move arm at full power for �timer� milliseconds either forward (1) or backward (-1)
+	void moveArm(int direction, int timer=0) {
 	// Check for function input error
 	if(direction == 1 || direction == -1 || direction == 0){
 		// Move at 100% power
@@ -85,8 +83,8 @@ void moveArm(int direction, int timer=0) {
 	}
 }
 
-// Move intake motors at full power in specified direction /*
-void moveIntake(int direction) {
+	// Move intake motors at full power in specified direction /*
+	void moveIntake(int direction) {
 	// Check for function input error
 	if (direction == 1 || direction == -1 || direction == 0){
 		// Move at 100% power
@@ -94,7 +92,8 @@ void moveIntake(int direction) {
 		motor[takeRight]   = FULL_POWER * direction;
 	}
 }
-		void turnDrive(int direction, int timer=0) {
+	//Spin drive motors in opp. directions
+	void turnDrive(int direction, int timer=0) {
 	// Check for function input error
 	if(direction == 1 || direction == -1 || direction == 0){
 		// Default Left Turn
@@ -118,11 +117,11 @@ void moveIntake(int direction) {
 
 // Move arm to user specified position
 void armToPos(int setpoint) {
-	int cur = SensorValue(sensorPotentiometer);
+	int cur = SensorValue(potentiometer);
 
 	// While the current value is not close to the threshold
 	while(cur < setpoint - 0.05 || cur > setpoint + 0.05) {
-		cur = SensorValue(sensorPotentiometer);
+		cur = SensorValue(potentiometer);
 
 		if(cur < setpoint) {
 			moveArm(1);
@@ -303,10 +302,10 @@ task autonomous()
 		moveDrive(-1,250);
 
 		//move to first position
-		moveDrive(1,500;
+		moveDrive(1,500);
 
 		// Move arm up
-		moveArm(1, 750);
+		moveArm(1,750);
 
 		// Move forward to second point
 		moveDrive(1, 500);
@@ -322,12 +321,13 @@ task autonomous()
 		moveDrive(-1, 1000);
 
 		//stop robot for button press to reposition
-		/*moveDrive(0,3000); */
+		/* moveDrive(0,3000); */
 
 		while (SensorValue[touchSensor] != 1){}
 
 		//move robot forward at new angle
 		moveDrive(1,1300);
+
 
 
 	}
@@ -342,7 +342,7 @@ task autonomous()
 		moveDrive(-1,250);
 
 		//move to first position
-		moveDrive(1,500;
+		moveDrive(1,500);
 
 		 //stop Robot and intake balls
  		 moveIntake(1);
@@ -389,7 +389,7 @@ task autonomous()
 		moveDrive(-1,250);
 
 		//move to first position
-		moveDrive(1,500;
+		moveDrive(1,500);
 
 		//stop Robot and intake balls
 		 moveIntake(1);
@@ -487,22 +487,11 @@ task usercontrol() {
 			//*Pnumatics*//
 
 		if(vexRT[Btn7U]) {
-			// Engage solenoid
-			SensorValue[hook1] = 1;
-			SensorValue[hook2] = 1;
-		}
-		else if(vexRT[Btn7D]) {
-			// Disengage solenoid
-			SensorValue[hook1] = 0;
-			SensorValue[hook2] = 0;
-		}
-
-		if(vexRT[Btn7L]) {
 			//activate lock
 			SensorValue[pistonLock1] = 1;
 			SensorValue[pistonLock2] = 1;
 		}
-		else if(vexRT[Btn7R]) {
+		else if(vexRT[Btn7D]) {
 			SensorValue[pistonLock1] = 0;
 			SensorValue[pistonLock2] = 0;
 		}
@@ -518,5 +507,28 @@ task usercontrol() {
 		else if(vexRT[Btn8R])	{
 			armToPos(.2);
 		}
+
+
+		//below was sent from Robert, not sure how it fits in for poteniometer
+		/*
+		// Move arm to user specified position
+void armToPos(int setpoint) {
+	int cur = SensorValue(sensorPotentiometer);
+
+	// While the current value is not close to the threshold
+	while(cur < setpoint - 0.05 || cur > setpoint + 0.05) {
+		cur = SensorValue(sensorPotentiometer);
+
+		if(cur < setpoint) {
+			moveArm(1);
+		}
+		else if(cur > setpoint) {
+			moveArm(-1);
+		}
+                else
+                {
+                motor[dogemotor]=10;
+	}
+} */
 	}
 }
