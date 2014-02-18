@@ -526,6 +526,7 @@ task usercontrol() {
 				motor[bottomRightTower] = -70;
 			}
 		}
+		/*
 		else
 		{
 			motor[topRightTower] = 10;
@@ -533,7 +534,7 @@ task usercontrol() {
 			motor[bottomLeftTower]= 10;
 			motor[bottomRightTower] = 10;
 		}
-
+		*/
 
 	}
 }
