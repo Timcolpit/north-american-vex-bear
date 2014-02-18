@@ -526,6 +526,8 @@ task usercontrol() {
 				motor[bottomRightTower] = -70;
 			}
 		}
+
+		//why is this commented out?
 		/*
 		else
 		{
