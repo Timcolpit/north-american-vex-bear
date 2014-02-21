@@ -464,13 +464,8 @@ task usercontrol() {
 		}
 		// If neither buttons 5U or 5D are pressed
 		else {
-			// Stop bottom tower movement (i.e. don't move arm up or down)
-			motor[topRightTower]    = STOP;
-			motor[topLeftTower]     = STOP;
-			motor[bottomRightTower]	= STOP;
-			motor[bottomLeftTower]  = STOP;
+			moveArm(0);	//don't move arm
 		}
-
 
 		// Intake
 
