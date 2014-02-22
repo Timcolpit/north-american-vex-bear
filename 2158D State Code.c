@@ -465,7 +465,23 @@ task usercontrol() {
 		// If neither buttons 5U or 5D are pressed
 		else {
 			moveArm(0);	//don't move arm
+
 		}
+		if(vexRT[Btn8L]==1)
+		{
+			motor[bottomLeftTower]= 64;
+			motor[bottomRightTower]= 64;
+			motor[topLeftTower] = 64;
+			motor[topRightTower]= 64;
+		}
+		if(vexRT[Btn8R]==1)
+		{
+			motor[bottomLeftTower] = -64;
+			motor[bottomRightTower]= -64;
+			motor[topLeftTower]= -64;
+			motor[topRightTower]= -64;
+		}
+
 
 		// Intake
 
