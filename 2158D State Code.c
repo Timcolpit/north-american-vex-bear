@@ -46,7 +46,7 @@ void moveDrive(int direction, int timer=0) {
 		motor[backRightMotor]	   = FULL_POWER * direction;
 		motor[backLeftMotor]	   = FULL_POWER * direction;
 	}
-
+//such programming
 	if(timer != 0) {
 		// Wait �timer� ms
 		wait1Msec(timer);
