@@ -2,7 +2,7 @@
 #pragma config(Sensor, dgtl3,  pistonLock1,    sensorDigitalOut)
 #pragma config(Sensor, dgtl4,  pistonLock2,    sensorDigitalOut)
 #pragma config(Sensor, dgtl5,  touchSensor,    sensorTouch)
-#pragma config(Motor,  port1,           frontRightMotor, tmotorVex393, openLoop)
+#pragma config(Motor,  port1,           frontRightMotor, tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port2,           backRightMotor, tmotorVex393, openLoop)
 #pragma config(Motor,  port3,           backLeftMotor, tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port4,           bottomRightTower, tmotorVex393, openLoop, reversed)
@@ -117,7 +117,7 @@ void turnDrive(int direction, int timer=0) {
 // Move arm to user specified position
 void armToPos(int setpoint) {
 int cur = SensorValue(potentiometer);
-
+s
 // While the current value is not close to the threshold
 while(cur < setpoint - 0.05 || cur > setpoint + 0.05) {
 cur = SensorValue(potentiometer);
