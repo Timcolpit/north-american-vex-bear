@@ -46,7 +46,7 @@ void moveDrive(int direction, int timer=0) {
 		motor[backRightMotor]	 = FULL_POWER * direction;
 		motor[backLeftMotor]	 = FULL_POWER * direction;
 	}
-//such programming
+	//such programming
 	if(timer != 0) {
 		// Wait �timer� ms
 		wait1Msec(timer);
@@ -157,8 +157,7 @@ void waitForRelease()
 //
 /////////////////////////////////////////////////////////////////////////////////////////
 
-void pre_auton()
-{
+void pre_auton(){
 
 	bLCDBacklight = true;	// Turn on LCD Backlight
 
@@ -193,120 +192,119 @@ void pre_auton()
 	{
 		//Switch case that allows the user to choose from 3 different options
 		switch(count){
-		case 0: //Display first choice
-			displayLCDCenteredString(0, "Goal Auto red");
-			displayLCDCenteredString(1, "<     Enter    >");
-			waitForPress();
+			case 0: //Display first choice
+				displayLCDCenteredString(0, "Goal Auto red");
+				displayLCDCenteredString(1, "<     Enter    >");
+				waitForPress();
 
-			//Increment or decrement "count" based on button press
-			if(nLCDButtons == leftButton)
-			{
-				waitForRelease();
-				count = --;
-			}
+				//Increment or decrement "count" based on button press
+				if(nLCDButtons == leftButton)
+				{
+					waitForRelease();
+					count--;
+				}
 
-			else if(nLCDButtons == rightButton)
-			{
-				waitForRelease();
-				count = ++;
-			}
-			break;
+				else if(nLCDButtons == rightButton)
+				{
+					waitForRelease();
+					count++;
+				}
+				break;
 			case 3: //display 3rd choice
-			displayLCDCenteredString(0, "Goal Auto Blue");
-			displayLCDCenteredString(1, "<     Enter    >");
+				displayLCDCenteredString(0, "Goal Auto Blue");
+				displayLCDCenteredString(1, "<     Enter    >");
 
 
-			if(nLCDButtons == leftButton) {
-				waitForRelease();
-				count = --;
-			}
-			else if(nLCDButtons == rightButton) {
-				waitForRelease();
-				count = ++;
-			}
-			break;
+				if(nLCDButtons == leftButton) {
+					waitForRelease();
+					count--;
+				}
+				else if(nLCDButtons == rightButton) {
+					waitForRelease();
+					count++;
+				}
+				break;
 
-		default:
-			count = 0;
-			break;
+			default:
+				count = 0;
+				break;
 		}
 
-		case 2: //Display second choice
-			displayLCDCenteredString(0, " Blue Hang auto");
-			displayLCDCenteredString(1, "<     Enter    >");
-			waitForPress();
-			//Increment or decrement "count" based on button press
-			if(nLCDButtons == leftButton) {
-				waitForRelease();
-				count = --;
-			}
+		switch(count){
+			case 2: //Display second choice
+				displayLCDCenteredString(0, " Blue Hang auto");
+				displayLCDCenteredString(1, "<     Enter    >");
+				waitForPress();
+				//Increment or decrement "count" based on button press
+				if(nLCDButtons == leftButton) {
+					waitForRelease();
+					count--;
+				}
 
-			else if(nLCDButtons == rightButton) {
-				waitForRelease();
-				count = ++;
-			}
-			break;
+				else if(nLCDButtons == rightButton) {
+					waitForRelease();
+					count++;
+				}
+				break;
 
-		case 3: //display 3rd choice
-			displayLCDCenteredString(0, "Red Hang auto");
-			displayLCDCenteredString(1, "<     Enter    >");
+			case 3: //display 3rd choice
+				displayLCDCenteredString(0, "Red Hang auto");
+				displayLCDCenteredString(1, "<     Enter    >");
 
 
-			if(nLCDButtons == leftButton) {
-				waitForRelease();
-				count = --;
-			}
-			else if(nLCDButtons == rightButton) {
-				waitForRelease();
-				count = ++;
-			}
-			break;
+				if(nLCDButtons == leftButton) {
+					waitForRelease();
+					count--;
+				}
+				else if(nLCDButtons == rightButton) {
+					waitForRelease();
+					count++;
+				}
+				break;
 
-		default:
-			count = 0;
-			break;
+				default:
+				count = 0;
+				break;
 		}
-		
-	}
+		//Clear LCD
+		clearLCDLine(0);
+		clearLCDLine(1);
 
-	//Clear LCD
-	clearLCDLine(0);
-	clearLCDLine(1);
+		switch(count) {  //pick auto, display
+			case 0: //Choice 1 from LCD
+				displayLCDCenteredString(0, "Red Gaol Auto");
+				displayLCDCenteredString(1, "is running!");
+				wait1Msec(1000);
+				programChoice = 1;
+				break;
 
-	switch(count) {  //pick auto, display
-	case 0: //Choice 1 from LCD
-		displayLCDCenteredString(0, "Red Gaol Auto");
-		displayLCDCenteredString(1, "is running!");
-		wait1Msec(1000);
-		programChoice = 1;
-		break;
-		
-	case 1: //Choice 2 from LCD
-		displayLCDCenteredString(0, "Blue Goal Auto");
-		displayLCDCenteredString(1, "is running!");
-		wait1Msec(1000);
-		programChoice = 4;
-		break;
+			case 1: //Choice 2 from LCD
+				displayLCDCenteredString(0, "Blue Goal Auto");
+				displayLCDCenteredString(1, "is running!");
+				wait1Msec(1000);
+				programChoice = 4;
+				break;
 
-	case 2: //Choice 2 from LCD
-		displayLCDCenteredString(0, "Blue Hang Auto");
-		displayLCDCenteredString(1, "is running!");
-		wait1Msec(1000);
-		programChoice = 2;
-		break;
+			case 2: //Choice 2 from LCD
+				displayLCDCenteredString(0, "Blue Hang Auto");
+				displayLCDCenteredString(1, "is running!");
+				wait1Msec(1000);
+				programChoice = 2;
+				break;
 
-	case 3: //Choice 3 from LCD
-		displayLCDCenteredString(0, "Red Hang Auto");
-		displayLCDCenteredString(1, "is running!");
-		wait1Msec(1000);
-		programChoice = 3;
-		break;
+			case 3: //Choice 3 from LCD
+				displayLCDCenteredString(0, "Red Hang Auto");
+				displayLCDCenteredString(1, "is running!");
+				wait1Msec(1000);
+				programChoice = 3;
+				break;
 
-	default:
-		displayLCDCenteredString(0, "No valid choice");
-		displayLCDCenteredString(1, "was made!");
-		wait1Msec(1000);
-		break;
+			default:
+				displayLCDCenteredString(0, "No valid choice");
+				displayLCDCenteredString(1, "was made!");
+				wait1Msec(1000);
+				break;
+		}
 	}
 }
 
@@ -323,138 +321,138 @@ task autonomous()
 {
 
 
-	// goal side auto (auto 1)
-	if(programChoice == 1){
+// goal side auto (auto 1)
+if(programChoice == 1){
 
-		// Move forward
-		moveDrive(1, 250);
+// Move forward
+moveDrive(1, 250);
 
-		//move back to pop out intake
-		moveDrive(-1,250);
+//move back to pop out intake
+moveDrive(-1,250);
 
-		//move to first position
-		moveDrive(1,500);
+//move to first position
+moveDrive(1,500);
 
-		// Move arm up
-		moveArm(1,750);
+// Move arm up
+moveArm(1,750);
 
-		// Move forward to second point
-		moveDrive(1, 500);
+// Move forward to second point
+moveDrive(1, 500);
 
-		// Wait a secound so that big ball is out of the way
-		wait1Msec(750);
+// Wait a secound so that big ball is out of the way
+wait1Msec(750);
 
-		// Outtake preload
-		moveIntake(-1);
-		wait1Msec(2000);
+// Outtake preload
+moveIntake(-1);
+wait1Msec(2000);
 
-		// Drive back to starting square
-		moveDrive(-1, 1000);
+// Drive back to starting square
+moveDrive(-1, 1000);
 
-		//stop robot for button press to reposition
-		/* moveDrive(0,3000); */
+//stop robot for button press to reposition
+/* moveDrive(0,3000); */
 
-		while (SensorValue[touchSensor] != 1){}
+while (SensorValue[touchSensor] != 1){}
 
-		//move robot forward at new angle
-		moveDrive(1,1300);
-
-
-
-	}
-
-	// Blue side hanging bar side of bump auto (auto 2)
-	else if(programChoice == 2) {
-
-		// Move forward
-		moveDrive(1, 250);
-
-		//move back to pop out intake
-		moveDrive(-1,250);
-
-		//move to first position
-		moveDrive(1,500);
-
-		//stop Robot and intake balls
-		moveIntake(1);
-
-		wait1Msec(750);
-
-		//move robot back to starting square
-		moveDrive(-1, 750);
-
-		//Stop robot for reposition 90 degrees
-		//moveDrive(0, 3000);
-		while (SensorValue[touchSensor] != 1){}
+//move robot forward at new angle
+moveDrive(1,1300);
 
 
-		//Move robot in new direction
-		moveDrive(1, 750);
 
-		//robot Turn 90 degrees left
-		turnDrive(1, 750);
+}
 
-		//Lift arm up a tig
-		moveArm(1,500);
+// Blue side hanging bar side of bump auto (auto 2)
+else if(programChoice == 2) {
 
-		//Move robot forward over the bump
-		moveDrive(1,1500);
+// Move forward
+moveDrive(1, 250);
 
-		//lift the arm all the way
-		moveArm(1,750);
+//move back to pop out intake
+moveDrive(-1,250);
 
-		//move forward alittle
-		moveDrive(1,250);
+//move to first position
+moveDrive(1,500);
 
-		//outtake preload
-		moveIntake(1);
-		wait1Msec(2000);
-	}
-	//Red side hanging bar side of bump auto (auto 3)
-	else if(programChoice ==3) {
+//stop Robot and intake balls
+moveIntake(1);
 
-		// Move forward
-		moveDrive(1, 250);
+wait1Msec(750);
 
-		//move back to pop out intake
-		moveDrive(-1,250);
+//move robot back to starting square
+moveDrive(-1, 750);
 
-		//move to first position
-		moveDrive(1,500);
+//Stop robot for reposition 90 degrees
+//moveDrive(0, 3000);
+while (SensorValue[touchSensor] != 1){}
 
-		//stop Robot and intake balls
-		moveIntake(1);
-		wait1Msec(750);
 
-		//move drive back to original starting space
-		moveDrive(-1, 750);
+//Move robot in new direction
+moveDrive(1, 750);
 
-		//Stop robot for reposition 90 degrees
-		//moveDrive(0, 3000);
-		while (SensorValue[touchSensor] != 1){}
+//robot Turn 90 degrees left
+turnDrive(1, 750);
 
-		//Move robot in new direction
-		moveDrive(1, 750);
+//Lift arm up a tig
+moveArm(1,500);
 
-		//robot Turn 90 degrees Right
-		turnDrive(-1, 750);
+//Move robot forward over the bump
+moveDrive(1,1500);
 
-		//Lift arm up a tig
-		moveArm(1,500);
+//lift the arm all the way
+moveArm(1,750);
 
-		//Move robot forward over the bump
-		moveDrive(1,1500);
+//move forward alittle
+moveDrive(1,250);
 
-		//move arm all the way up
-		moveArm(1,750);
+//outtake preload
+moveIntake(1);
+wait1Msec(2000);
+}
+//Red side hanging bar side of bump auto (auto 3)
+else if(programChoice ==3) {
 
-		//move arm up just a tig
-		moveDrive(1,250);
+// Move forward
+moveDrive(1, 250);
 
-		//outtake preload
-		moveIntake(1);
-		wait1Msec(2000);
-	}
+//move back to pop out intake
+moveDrive(-1,250);
+
+//move to first position
+moveDrive(1,500);
+
+//stop Robot and intake balls
+moveIntake(1);
+wait1Msec(750);
+
+//move drive back to original starting space
+moveDrive(-1, 750);
+
+//Stop robot for reposition 90 degrees
+//moveDrive(0, 3000);
+while (SensorValue[touchSensor] != 1){}
+
+//Move robot in new direction
+moveDrive(1, 750);
+
+//robot Turn 90 degrees Right
+turnDrive(-1, 750);
+
+//Lift arm up a tig
+moveArm(1,500);
+
+//Move robot forward over the bump
+moveDrive(1,1500);
+
+//move arm all the way up
+moveArm(1,750);
+
+//move arm up just a tig
+moveDrive(1,250);
+
+//outtake preload
+moveIntake(1);
+wait1Msec(2000);
+}
 }
 
 
@@ -469,116 +467,116 @@ task autonomous()
 
 
 task usercontrol() {
-	while(1 == 1) {
+while(1 == 1) {
 
-		/* Drivetrain */
+/* Drivetrain */
 
-		//Right side of the robot is controlled by the right joystick, Y-axis
-		motor[frontRightMotor]	= vexRT[Ch2];
-		motor[backRightMotor] 	= vexRT[Ch2];
+//Right side of the robot is controlled by the right joystick, Y-axis
+motor[frontRightMotor]	= vexRT[Ch2];
+motor[backRightMotor] 	= vexRT[Ch2];
 
-		//Left side of the robot is controlled by the left joystick, Y-axis
-		motor[frontLeftMotor]   = vexRT[Ch3];
-		motor[backLeftMotor]    = vexRT[Ch3];
-
-
-
-		/* Button Control */
-
-		// Arm
-
-		if(vexRT[Btn5U]) {
-			moveArm(1); // Move arm up
-		}
-		else if(vexRT[Btn5D]) {
-			moveArm(-1); // Move arm down
-		}
-		// If neither buttons 5U or 5D are pressed
-		else {
-			moveArm(0);	//don't move arm
-
-		}
-		if(vexRT[Btn8L]==1)
-		{
-			motor[bottomLeftTower]= 64;
-			motor[bottomRightTower]= 64;
-			motor[topLeftTower] = 64;
-			motor[topRightTower]= 64;
-		}
-		if(vexRT[Btn8R]==1)
-		{
-			motor[bottomLeftTower] = -64;
-			motor[bottomRightTower]= -64;
-			motor[topLeftTower]= -64;
-			motor[topRightTower]= -64;
-		}
+//Left side of the robot is controlled by the left joystick, Y-axis
+motor[frontLeftMotor]   = vexRT[Ch3];
+motor[backLeftMotor]    = vexRT[Ch3];
 
 
-		// Intake
 
-		if (vexRT[Btn6U]) {
-			moveIntake(1); //runs intake, pull
-		}
-		else if (vexRT[Btn6D]) {
-			moveIntake(-1); //runs intake, push
-		}
-		else {
-			moveIntake(0);
-		}
+/* Button Control */
 
-		//*Pnumatics*//
+// Arm
 
-		if(vexRT[Btn7U]) {
-			//activate lock
-			SensorValue[pistonLock1] = 1;
-			SensorValue[pistonLock2] = 1;
-		}
-		else if(vexRT[Btn7D]) {
-			SensorValue[pistonLock1] = 0;
-			SensorValue[pistonLock2] = 0;
-		}
+if(vexRT[Btn5U]) {
+moveArm(1); // Move arm up
+}
+else if(vexRT[Btn5D]) {
+moveArm(-1); // Move arm down
+}
+// If neither buttons 5U or 5D are pressed
+else {
+moveArm(0);	//don't move arm
 
-		if(vexRT[Btn8U]==1)
-		{
-			if(SensorValue(potentiometer) < 1700){
-				motor[topRightTower] = 127;
-				motor[topLeftTower] = 127;
-				motor[bottomLeftTower]= 127;
-				motor[bottomRightTower] = 127;
-			}
-			else if(SensorValue(potentiometer) > 1700){
-				motor[topRightTower] = 70;
-				motor[topLeftTower] = 70;
-				motor[bottomLeftTower]= 70;
-				motor[bottomRightTower] = 70;
-			}
-		}
-		else if(vexRT[Btn8D]==1)
-		{
-			if(SensorValue(potentiometer) < 1700){
-				motor[topRightTower] = -127;
-				motor[topLeftTower] = -127;
-				motor[bottomLeftTower]= -127;
-				motor[bottomRightTower] = -127;
-			}
-			else if(SensorValue(potentiometer) > 1700){
-				motor[topRightTower] = -70;
-				motor[topLeftTower] = -70;
-				motor[bottomLeftTower]= -70;
-				motor[bottomRightTower] = -70;
-			}
-		}
+}
+if(vexRT[Btn8L]==1)
+{
+motor[bottomLeftTower]= 64;
+motor[bottomRightTower]= 64;
+motor[topLeftTower] = 64;
+motor[topRightTower]= 64;
+}
+if(vexRT[Btn8R]==1)
+{
+motor[bottomLeftTower] = -64;
+motor[bottomRightTower]= -64;
+motor[topLeftTower]= -64;
+motor[topRightTower]= -64;
+}
 
-		//why is this commented out?
-		/*
-		else
-		{
-			motor[topRightTower] = 10;
-			motor[topLeftTower] = 10;
-			motor[bottomLeftTower]= 10;
-			motor[bottomRightTower] = 10;
-		}
-		*/
 
-	}
+// Intake
+
+if (vexRT[Btn6U]) {
+moveIntake(1); //runs intake, pull
+}
+else if (vexRT[Btn6D]) {
+moveIntake(-1); //runs intake, push
+}
+else {
+moveIntake(0);
+}
+
+//*Pnumatics*//
+
+if(vexRT[Btn7U]) {
+//activate lock
+SensorValue[pistonLock1] = 1;
+SensorValue[pistonLock2] = 1;
+}
+else if(vexRT[Btn7D]) {
+SensorValue[pistonLock1] = 0;
+SensorValue[pistonLock2] = 0;
+}
+
+if(vexRT[Btn8U]==1)
+{
+if(SensorValue(potentiometer) < 1700){
+	motor[topRightTower] = 127;
+	motor[topLeftTower] = 127;
+	motor[bottomLeftTower]= 127;
+	motor[bottomRightTower] = 127;
+}
+else if(SensorValue(potentiometer) > 1700){
+	motor[topRightTower] = 70;
+	motor[topLeftTower] = 70;
+	motor[bottomLeftTower]= 70;
+	motor[bottomRightTower] = 70;
+}
+}
+else if(vexRT[Btn8D]==1)
+{
+if(SensorValue(potentiometer) < 1700){
+	motor[topRightTower] = -127;
+	motor[topLeftTower] = -127;
+	motor[bottomLeftTower]= -127;
+	motor[bottomRightTower] = -127;
+}
+else if(SensorValue(potentiometer) > 1700){
+	motor[topRightTower] = -70;
+	motor[topLeftTower] = -70;
+	motor[bottomLeftTower]= -70;
+	motor[bottomRightTower] = -70;
+}
+}
+
+//why is this commented out?
+/*
+else
+{
+motor[topRightTower] = 10;
+motor[topLeftTower] = 10;
+motor[bottomLeftTower]= 10;
+motor[bottomRightTower] = 10;
+}
+*/
+
+}
 }
