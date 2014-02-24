@@ -43,8 +43,8 @@ void moveDrive(int direction, int timer=0) {
 		// Move at 100% power
 		motor[frontRightMotor]	 = FULL_POWER * direction;
 		motor[frontLeftMotor] 	 = FULL_POWER * direction;
-		motor[backRightMotor]	   = FULL_POWER * direction;
-		motor[backLeftMotor]	   = FULL_POWER * direction;
+		motor[backRightMotor]	 = FULL_POWER * direction;
+		motor[backLeftMotor]	 = FULL_POWER * direction;
 	}
 //such programming
 	if(timer != 0) {
@@ -54,8 +54,8 @@ void moveDrive(int direction, int timer=0) {
 		// Stop
 		motor[frontRightMotor]	 = STOP;
 		motor[frontLeftMotor] 	 = STOP;
-		motor[backRightMotor]	   = STOP;
-		motor[backLeftMotor]	   = STOP;
+		motor[backRightMotor]	 = STOP;
+		motor[backLeftMotor]	 = STOP;
 	}
 }
 
@@ -66,8 +66,8 @@ void moveArm(int direction, int timer=0) {
 		// Move at 100% power
 		motor[topRightTower]	   = FULL_POWER * direction;
 		motor[topLeftTower] 	   = FULL_POWER * direction;
-		motor[bottomRightTower]  = FULL_POWER * direction;
-		motor[bottomLeftTower]   = FULL_POWER * direction;
+		motor[bottomRightTower]    = FULL_POWER * direction;
+		motor[bottomLeftTower]     = FULL_POWER * direction;
 	}
 
 	if(timer != 0) {
@@ -77,8 +77,8 @@ void moveArm(int direction, int timer=0) {
 		// Stop
 		motor[topRightTower]	   = STOP;
 		motor[topLeftTower] 	   = STOP;
-		motor[bottomRightTower]  = STOP;
-		motor[bottomLeftTower]   = STOP;
+		motor[bottomRightTower]    = STOP;
+		motor[bottomLeftTower]     = STOP;
 	}
 }
 
@@ -191,10 +191,10 @@ void pre_auton()
 
 	while(nLCDButtons != centerButton)
 	{
-		//Switch case that allows the user to choose from 2 different options
+		//Switch case that allows the user to choose from 3 different options
 		switch(count){
 		case 0: //Display first choice
-			displayLCDCenteredString(0, "Goal Auto");
+			displayLCDCenteredString(0, "Goal Auto red");
 			displayLCDCenteredString(1, "<     Enter    >");
 			waitForPress();
 
@@ -202,44 +202,27 @@ void pre_auton()
 			if(nLCDButtons == leftButton)
 			{
 				waitForRelease();
-				count = 2;
+				count = --;
 			}
 
 			else if(nLCDButtons == rightButton)
 			{
 				waitForRelease();
-				count = 1;
+				count = ++;
 			}
 			break;
-
-		case 1: //Display second choice
-			displayLCDCenteredString(0, " Blue Hang auto");
-			displayLCDCenteredString(1, "<     Enter    >");
-			waitForPress();
-			//Increment or decrement "count" based on button press
-			if(nLCDButtons == leftButton) {
-				waitForRelease();
-				count = 0;
-			}
-
-			else if(nLCDButtons == rightButton) {
-				waitForRelease();
-				count = 2;
-			}
-			break;
-
-		case 2: //display 3rd choice
-			displayLCDCenteredString(0, "Red Hang auto");
+			case 3: //display 3rd choice
+			displayLCDCenteredString(0, "Goal Auto Blue");
 			displayLCDCenteredString(1, "<     Enter    >");
 
 
 			if(nLCDButtons == leftButton) {
 				waitForRelease();
-				count = 1;
+				count = --;
 			}
 			else if(nLCDButtons == rightButton) {
 				waitForRelease();
-				count = 0;
+				count = ++;
 			}
 			break;
 
@@ -247,6 +230,43 @@ void pre_auton()
 			count = 0;
 			break;
 		}
+
+		case 2: //Display second choice
+			displayLCDCenteredString(0, " Blue Hang auto");
+			displayLCDCenteredString(1, "<     Enter    >");
+			waitForPress();
+			//Increment or decrement "count" based on button press
+			if(nLCDButtons == leftButton) {
+				waitForRelease();
+				count = --;
+			}
+
+			else if(nLCDButtons == rightButton) {
+				waitForRelease();
+				count = ++;
+			}
+			break;
+
+		case 3: //display 3rd choice
+			displayLCDCenteredString(0, "Red Hang auto");
+			displayLCDCenteredString(1, "<     Enter    >");
+
+
+			if(nLCDButtons == leftButton) {
+				waitForRelease();
+				count = --;
+			}
+			else if(nLCDButtons == rightButton) {
+				waitForRelease();
+				count = ++;
+			}
+			break;
+
+		default:
+			count = 0;
+			break;
+		}
+		
 	}
 
 	//Clear LCD
@@ -255,26 +275,37 @@ void pre_auton()
 
 	switch(count) {  //pick auto, display
 	case 0: //Choice 1 from LCD
-		displayLCDCenteredString(0, "Goal Side Auto");
+		displayLCDCenteredString(0, "Red Gaol Auto");
 		displayLCDCenteredString(1, "is running!");
+		wait1Msec(1000);
 		programChoice = 1;
 		break;
-
+		
 	case 1: //Choice 2 from LCD
+		displayLCDCenteredString(0, "Blue Goal Auto");
+		displayLCDCenteredString(1, "is running!");
+		wait1Msec(1000);
+		programChoice = 4;
+		break;
+
+	case 2: //Choice 2 from LCD
 		displayLCDCenteredString(0, "Blue Hang Auto");
 		displayLCDCenteredString(1, "is running!");
+		wait1Msec(1000);
 		programChoice = 2;
 		break;
 
-	case 2: //Choice 3 from LCD
+	case 3: //Choice 3 from LCD
 		displayLCDCenteredString(0, "Red Hang Auto");
 		displayLCDCenteredString(1, "is running!");
+		wait1Msec(1000);
 		programChoice = 3;
 		break;
 
 	default:
 		displayLCDCenteredString(0, "No valid choice");
 		displayLCDCenteredString(1, "was made!");
+		wait1Msec(1000);
 		break;
 	}
 }
