@@ -43,19 +43,19 @@ void moveDrive(int direction, int timer=0) {
 		// Move at 100% power
 		motor[frontRightMotor]	 = FULL_POWER * direction;
 		motor[frontLeftMotor] 	 = FULL_POWER * direction;
-		motor[backRightMotor]	 = FULL_POWER * direction;
-		motor[backLeftMotor]	 = FULL_POWER * direction;
+		motor[backRightMotor]		 = FULL_POWER * direction;
+		motor[backLeftMotor]	 	 = FULL_POWER * direction;
 	}
-	//such programming
+
 	if(timer != 0) {
-		// Wait �timer� ms
+		// Wait timer ms
 		wait1Msec(timer);
 
 		// Stop
 		motor[frontRightMotor]	 = STOP;
 		motor[frontLeftMotor] 	 = STOP;
-		motor[backRightMotor]	 = STOP;
-		motor[backLeftMotor]	 = STOP;
+		motor[backRightMotor]	 	 = STOP;
+		motor[backLeftMotor]	   = STOP;
 	}
 }
 
@@ -64,14 +64,14 @@ void moveArm(int direction, int timer=0) {
 	// Check for function input error
 	if(direction == 1 || direction == -1 || direction == 0){
 		// Move at 100% power
-		motor[topRightTower]	   = FULL_POWER * direction;
-		motor[topLeftTower] 	   = FULL_POWER * direction;
+		motor[topRightTower]	   	 = FULL_POWER * direction;
+		motor[topLeftTower] 	     = FULL_POWER * direction;
 		motor[bottomRightTower]    = FULL_POWER * direction;
 		motor[bottomLeftTower]     = FULL_POWER * direction;
 	}
 
 	if(timer != 0) {
-		// Wait �timer� ms
+		// Wait timer ms
 		wait1Msec(timer);
 
 		// Stop
@@ -103,7 +103,7 @@ void turnDrive(int direction, int timer=0) {
 	}
 
 	if(timer != 0) {
-		// Wait ?timer? ms
+		// Wait timer ms
 		wait1Msec(timer);
 
 		// Stop
@@ -183,15 +183,15 @@ void pre_auton(){
 
 	wait1Msec(500);
 
-	//displayLCDCenteredString(0, "Test");
 	//Declare count variable to keep track of our choice
 
 	int count = 0;
 
 	while(nLCDButtons != centerButton)
 	{
-		//Switch case that allows the user to choose from 3 different options
+		//Switch case that allows the user to choose from 5 different options
 		switch(count){
+
 			case 0: //Display first choice
 				displayLCDCenteredString(0, "Goal Auto red");
 				displayLCDCenteredString(1, "<     Enter    >");
@@ -210,7 +210,7 @@ void pre_auton(){
 					count++;
 				}
 				break;
-			case 3: //display 3rd choice
+			case 1: //display 2nd choice
 				displayLCDCenteredString(0, "Goal Auto Blue");
 				displayLCDCenteredString(1, "<     Enter    >");
 
@@ -231,7 +231,7 @@ void pre_auton(){
 		}
 
 		switch(count){
-			case 2: //Display second choice
+			case 2: //Display 3rd choice
 				displayLCDCenteredString(0, " Blue Hang auto");
 				displayLCDCenteredString(1, "<     Enter    >");
 				waitForPress();
@@ -247,7 +247,7 @@ void pre_auton(){
 				}
 				break;
 
-			case 3: //display 3rd choice
+			case 3: //display 4th choice
 				displayLCDCenteredString(0, "Red Hang auto");
 				displayLCDCenteredString(1, "<     Enter    >");
 
@@ -266,7 +266,7 @@ void pre_auton(){
 				count = 0;
 				break;
 
-							case 4: //display 3rd choice
+							case 4: //display 5th choice
 				displayLCDCenteredString(0, "Skills Challenge");
 				displayLCDCenteredString(1, "<     Enter    >");
 
@@ -368,9 +368,11 @@ task autonomous()
 	// Wait a secound so that big ball is out of the way
 	wait1Msec(750);
 
+	/*
 	// Outtake preload
 	moveIntake(-1);
 	wait1Msec(2000);
+	*/
 
 	// Drive back to starting square
 	moveDrive(-1, 1000);
@@ -382,6 +384,24 @@ task autonomous()
 
 	//move robot forward at new angle
 	moveDrive(1,1300);
+
+	//dive back to starting square
+	moveDrive(-1,1300);
+
+	//stop robot wait for reposition
+	 while (SensorValue[touchSensor] != 1) {}
+
+	 //dive forward
+	 moveDrive(1,1500);
+
+	 //lift arm just a tig
+	 moveArm(1,250);
+
+	 //turn left 90 degrees
+	 turnDrive(1,500);
+
+	 //knock other colour bucky balls off the bump
+	 moveDrive(1,250);
 	}
 
 	// goal side blue
@@ -417,11 +437,29 @@ task autonomous()
 
 	while (SensorValue[touchSensor] != 1){}
 
-	//move robot forward at new angle
+		//move robot forward at new angle
 	moveDrive(1,1300);
+
+	//dive back to starting square
+	moveDrive(-1,1300);
+
+	//stop robot wait for reposition
+	 while (SensorValue[touchSensor] != 1) {}
+
+	 //dive forward
+	 moveDrive(1,1500);
+
+	 //lift arm just a tig
+	 moveArm(1,250);
+
+	 //turn right 90 degrees
+	 turnDrive(-1,500);
+
+	 //knock other colour bucky balls off the bump
+	 moveDrive(1,250);
 	}
 
-	// Blue side hanging bar side of bump auto (auto 2)
+	// Blue side hanging bar side of bump auto (auto 3)
 	else if(programChoice == 3) {
 
 	// Move forward
@@ -507,7 +545,7 @@ task autonomous()
 	//move arm all the way up
 	moveArm(1,750);
 
-	//move arm up just a tig
+	//move move drive a tig
 	moveDrive(1,250);
 
 	//outtake preload
