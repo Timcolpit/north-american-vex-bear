@@ -265,6 +265,25 @@ void pre_auton(){
 				default:
 				count = 0;
 				break;
+
+							case 4: //display 3rd choice
+				displayLCDCenteredString(0, "Skills Challenge");
+				displayLCDCenteredString(1, "<     Enter    >");
+
+
+				if(nLCDButtons == leftButton) {
+					waitForRelease();
+					count--;
+				}
+				else if(nLCDButtons == rightButton) {
+					waitForRelease();
+					count++;
+				}
+				break;
+
+				default:
+				count = 0;
+				break;
 		}
 		//Clear LCD
 		clearLCDLine(0);
@@ -272,7 +291,7 @@ void pre_auton(){
 
 		switch(count) {  //pick auto, display
 			case 0: //Choice 1 from LCD
-				displayLCDCenteredString(0, "Red Gaol Auto");
+				displayLCDCenteredString(0, "Red Goal Auto");
 				displayLCDCenteredString(1, "is running!");
 				wait1Msec(1000);
 				programChoice = 1;
@@ -282,21 +301,28 @@ void pre_auton(){
 				displayLCDCenteredString(0, "Blue Goal Auto");
 				displayLCDCenteredString(1, "is running!");
 				wait1Msec(1000);
-				programChoice = 4;
+				programChoice = 2;
 				break;
 
 			case 2: //Choice 2 from LCD
 				displayLCDCenteredString(0, "Blue Hang Auto");
 				displayLCDCenteredString(1, "is running!");
 				wait1Msec(1000);
-				programChoice = 2;
+				programChoice = 3;
 				break;
 
 			case 3: //Choice 3 from LCD
 				displayLCDCenteredString(0, "Red Hang Auto");
 				displayLCDCenteredString(1, "is running!");
 				wait1Msec(1000);
-				programChoice = 3;
+				programChoice = 4;
+				break;
+
+			case 4: //Choice 3 from LCD
+				displayLCDCenteredString(0, "Skills Challenge");
+				displayLCDCenteredString(1, "is running!");
+				wait1Msec(1000);
+				programChoice = 5;
 				break;
 
 			default:
@@ -321,138 +347,178 @@ task autonomous()
 {
 
 
-// goal side auto (auto 1)
-if(programChoice == 1){
+	// goal side Red
+	if(programChoice == 1){
 
-// Move forward
-moveDrive(1, 250);
+	// Move forward
+	moveDrive(1, 250);
 
-//move back to pop out intake
-moveDrive(-1,250);
+	//move back to pop out intake
+	moveDrive(-1,250);
 
-//move to first position
-moveDrive(1,500);
+	//move to first position
+	moveDrive(1,500);
 
-// Move arm up
-moveArm(1,750);
+	// Move arm up
+	moveArm(1,750);
 
-// Move forward to second point
-moveDrive(1, 500);
+	// Move forward to second point
+	moveDrive(1, 500);
 
-// Wait a secound so that big ball is out of the way
-wait1Msec(750);
+	// Wait a secound so that big ball is out of the way
+	wait1Msec(750);
 
-// Outtake preload
-moveIntake(-1);
-wait1Msec(2000);
+	// Outtake preload
+	moveIntake(-1);
+	wait1Msec(2000);
 
-// Drive back to starting square
-moveDrive(-1, 1000);
+	// Drive back to starting square
+	moveDrive(-1, 1000);
 
-//stop robot for button press to reposition
-/* moveDrive(0,3000); */
+	//stop robot for button press to reposition
+	/* moveDrive(0,3000); */
 
-while (SensorValue[touchSensor] != 1){}
+	while (SensorValue[touchSensor] != 1){}
 
-//move robot forward at new angle
-moveDrive(1,1300);
+	//move robot forward at new angle
+	moveDrive(1,1300);
+	}
+
+	// goal side blue
+	if(programChoice == 2){
+
+	// Move forward
+	moveDrive(1, 250);
+
+	//move back to pop out intake
+	moveDrive(-1,250);
+
+	//move to first position
+	moveDrive(1,500);
+
+	// Move arm up
+	moveArm(1,750);
+
+	// Move forward to second point
+	moveDrive(1, 500);
+
+	// Wait a secound so that big ball is out of the way
+	wait1Msec(750);
+
+	// Outtake preload
+	moveIntake(-1);
+	wait1Msec(2000);
+
+	// Drive back to starting square
+	moveDrive(-1, 1000);
+
+	//stop robot for button press to reposition
+	/* moveDrive(0,3000); */
+
+	while (SensorValue[touchSensor] != 1){}
+
+	//move robot forward at new angle
+	moveDrive(1,1300);
+	}
+
+	// Blue side hanging bar side of bump auto (auto 2)
+	else if(programChoice == 3) {
+
+	// Move forward
+	moveDrive(1, 250);
+
+	//move back to pop out intake
+	moveDrive(-1,250);
+
+	//move to first position
+	moveDrive(1,500);
+
+	//stop Robot and intake balls
+	moveIntake(1);
+
+	wait1Msec(750);
+
+	//move robot back to starting square
+	moveDrive(-1, 750);
+
+	//Stop robot for reposition 90 degrees
+	//moveDrive(0, 3000);
+	while (SensorValue[touchSensor] != 1){}
 
 
+	//Move robot in new direction
+	moveDrive(1, 750);
 
-}
+	//robot Turn 90 degrees left
+	turnDrive(1, 750);
 
-// Blue side hanging bar side of bump auto (auto 2)
-else if(programChoice == 2) {
+	//Lift arm up a tig
+	moveArm(1,500);
 
-// Move forward
-moveDrive(1, 250);
+	//Move robot forward over the bump
+	moveDrive(1,1500);
 
-//move back to pop out intake
-moveDrive(-1,250);
+	//lift the arm all the way
+	moveArm(1,750);
 
-//move to first position
-moveDrive(1,500);
+	//move forward alittle
+	moveDrive(1,250);
 
-//stop Robot and intake balls
-moveIntake(1);
+	//outtake preload
+	moveIntake(1);
+	wait1Msec(2000);
+	}
 
-wait1Msec(750);
+	//Red side hanging bar side of bump auto (auto 3)
+	else if(programChoice ==4) {
 
-//move robot back to starting square
-moveDrive(-1, 750);
+	// Move forward
+	moveDrive(1, 250);
 
-//Stop robot for reposition 90 degrees
-//moveDrive(0, 3000);
-while (SensorValue[touchSensor] != 1){}
+	//move back to pop out intake
+	moveDrive(-1,250);
 
+	//move to first position
+	moveDrive(1,500);
 
-//Move robot in new direction
-moveDrive(1, 750);
+	//stop Robot and intake balls
+	moveIntake(1);
+	wait1Msec(750);
 
-//robot Turn 90 degrees left
-turnDrive(1, 750);
+	//move drive back to original starting space
+	moveDrive(-1, 750);
 
-//Lift arm up a tig
-moveArm(1,500);
+	//Stop robot for reposition 90 degrees
+	//moveDrive(0, 3000);
+	while (SensorValue[touchSensor] != 1){}
 
-//Move robot forward over the bump
-moveDrive(1,1500);
+	//Move robot in new direction
+	moveDrive(1, 750);
 
-//lift the arm all the way
-moveArm(1,750);
+	//robot Turn 90 degrees Right
+	turnDrive(-1, 750);
 
-//move forward alittle
-moveDrive(1,250);
+	//Lift arm up a tig
+	moveArm(1,500);
 
-//outtake preload
-moveIntake(1);
-wait1Msec(2000);
-}
-//Red side hanging bar side of bump auto (auto 3)
-else if(programChoice ==3) {
+	//Move robot forward over the bump
+	moveDrive(1,1500);
 
-// Move forward
-moveDrive(1, 250);
+	//move arm all the way up
+	moveArm(1,750);
 
-//move back to pop out intake
-moveDrive(-1,250);
+	//move arm up just a tig
+	moveDrive(1,250);
 
-//move to first position
-moveDrive(1,500);
+	//outtake preload
+	moveIntake(1);
+	wait1Msec(2000);
+	}
 
-//stop Robot and intake balls
-moveIntake(1);
-wait1Msec(750);
-
-//move drive back to original starting space
-moveDrive(-1, 750);
-
-//Stop robot for reposition 90 degrees
-//moveDrive(0, 3000);
-while (SensorValue[touchSensor] != 1){}
-
-//Move robot in new direction
-moveDrive(1, 750);
-
-//robot Turn 90 degrees Right
-turnDrive(-1, 750);
-
-//Lift arm up a tig
-moveArm(1,500);
-
-//Move robot forward over the bump
-moveDrive(1,1500);
-
-//move arm all the way up
-moveArm(1,750);
-
-//move arm up just a tig
-moveDrive(1,250);
-
-//outtake preload
-moveIntake(1);
-wait1Msec(2000);
-}
+	//skills challenge
+	else if(programChoice == 3) {
+		moveDrive(0);
+	}
 }
 
 
