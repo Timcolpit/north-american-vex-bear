@@ -10,6 +10,16 @@
 #define FULL_POWER 127
 #define HALF_POWER 63
 #define STOP 0
+
+const short leftButton = 1;
+const short centerButton = 2;
+const short rightButton = 4;
+
+string mainBattery;
+string backupBattery;
+
+short programChoice;
+
 //Competition Control and Duration Settings
 #pragma competitionControl(Competition)
 #pragma autonomousDuration(20)
@@ -58,9 +68,30 @@ void moveLift(int direction, int timer=0) {
 		motor[liftLeft]          = STOP;
 	}
 }
-/*
+
 //Spin drive motors in opp. directions
-void turnDrive(int direction, int timer=0) {
+void turnLeft(int direction, int timer=0) {
+	// Check for function input error
+	if(direction == 1 || direction == -1 || direction == 0){
+		// Default Left Turn
+		motor[frontRightMotor]	 = -FULL_POWER * direction;
+		motor[frontLeftMotor] 	 = FULL_POWER * direction;
+		motor[backRightMotor]	 = -FULL_POWER * direction;
+		motor[backLeftMotor]	 = FULL_POWER * direction;
+	}
+
+	if(timer != 0) {
+		// Wait timer ms
+		wait1Msec(timer);
+
+		// Stop
+		motor[frontRightMotor]   = STOP;
+		motor[frontLeftMotor]  	 = STOP;
+		motor[backRightMotor]    = STOP;
+		motor[backLeftMotor]     = STOP;
+	}
+//Spin drive motors in opp. directions
+void turnRight(int direction, int timer=0) {
 	// Check for function input error
 	if(direction == 1 || direction == -1 || direction == 0){
 		// Default Left Turn
@@ -80,7 +111,7 @@ void turnDrive(int direction, int timer=0) {
 		motor[backRightMotor]    = STOP;
 		motor[backLeftMotor]     = STOP;
 	}
-*/
+
 }
 
 
