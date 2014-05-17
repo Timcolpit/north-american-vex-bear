@@ -158,6 +158,7 @@ void turnLeft(int direction, int timer=0) {
 		motor[backRightMotor]    = STOP;
 		motor[backLeftMotor]     = STOP;
 	}
+}
 //Spin drive motors in opp. directions
 void turnRight(int direction, int timer=0) {
 	// Check for function input error
@@ -401,7 +402,7 @@ task autonomous()
     if(programChoice == 2){
     }
     if(programChoice == 3){
-    } 
+    }
     if(programChoice == 4){
     }
     if(programChoice == 5){
@@ -431,7 +432,7 @@ task usercontrol()
         //Left side of the robot is controlled by the left joystick, Y-axis
         motor[frontLeftMotor]   = vexRT[Ch3];
         motor[backLeftMotor]    = vexRT[Ch3];
-        
-        /* Buttons */	
+
+        /* Buttons */
     }
 }
