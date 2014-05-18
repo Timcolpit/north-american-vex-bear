@@ -433,6 +433,35 @@ task usercontrol()
         motor[frontLeftMotor]   = vexRT[Ch3];
         motor[backLeftMotor]    = vexRT[Ch3];
 
-        /* Buttons */
+        /* Button Control */
+
+    // Arm
+
+    if(vexRT[Btn5U]) {
+    moveLift(1); // Move arm up
+    }
+    else if(vexRT[Btn5D]) {
+    moveLift(-1); // Move arm down
+    }
+    // If neither buttons 5U or 5D are pressed
+    else {
+    moveLift(0);	//don't move arm
+
+    }
+    if(vexRT[Btn8L]==1)
+    {
+    motor[liftLeft] = 64;
+    motorliftRight] = 64;
+    }
+    if(vexRT[Btn8R]==1)
+    {
+    motor[liftLeft] = -64;
+    motorliftRight] = -64;    }
+    else {
+    motor[liftLeft] = 0;
+    motorliftRight] = 0;
+    }
+
+
     }
 }
