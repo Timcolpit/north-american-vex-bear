@@ -432,6 +432,25 @@ task usercontrol()
         //Left side of the robot is controlled by the left joystick, Y-axis
         motor[frontLeftMotor]   = vexRT[Ch3];
         motor[backLeftMotor]    = vexRT[Ch3];
+////////////////////////////////////////////////////////////////////////
+//
+//    End of forward drive
+//
+////////////////////////////////////////////////////////////////////////
+
+//Right side of the robot is controlled by the right joystick, X-axis
+        motor[frontRightMotor]	= vexRT[Ch1];
+        motor[backRightMotor] 	= vexRT[Ch1];
+
+//Right side of the robot is controlled by the right joystick, X-axis
+        motor[frontRightMotor]	= vexRT[Ch4];
+        motor[backRightMotor] 	= vexRT[Ch4];
+////////////////////////////////////////////////////////////////////////
+//
+//    End of sideways drive
+//
+////////////////////////////////////////////////////////////////////////
+        
 
         /* Button Control */
 
@@ -448,12 +467,12 @@ task usercontrol()
     moveLift(0);	//don't move arm
 
     }
-    if(vexRT[Btn8L]==1)
+    if(vexRT[Btn8L]==1) //move arm up half speed
     {
     motor[liftLeft] = 64;
     motorliftRight] = 64;
     }
-    if(vexRT[Btn8R]==1)
+    if(vexRT[Btn8R]==1) //move arm down half speed
     {
     motor[liftLeft] = -64;
     motorliftRight] = -64;    }
@@ -461,7 +480,11 @@ task usercontrol()
     motor[liftLeft] = 0;
     motorliftRight] = 0;
     }
-
+////////////////////////////////////////////////////////////////////////
+//
+//    End of Lift
+//
+////////////////////////////////////////////////////////////////////////
 
     }
 }
