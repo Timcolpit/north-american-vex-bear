@@ -164,6 +164,11 @@ void turnRight(int direction, int timer=0) {
 	}
 
 }
+////////////////////////////////////////////////////////////////////////
+//
+//    End of Drive Functions
+//
+////////////////////////////////////////////////////////////////////////
 
 // Move arm at full power for timer milliseconds either forward (1) or backward (-1)
 void moveLift(int direction, int timer=0) {
@@ -172,6 +177,23 @@ void moveLift(int direction, int timer=0) {
 		// Move at 100% power
 		motor[liftRight]	   	 = FULL_POWER * direction;
 		motor[liftLeft]          = FULL_POWER * direction;
+	}
+
+	if(timer != 0) {
+		// Wait timer ms
+		wait1Msec(timer);
+
+		// Stop
+		motor[liftRight]	   	 = STOP;
+		motor[liftLeft]          = STOP;
+	}
+}
+void halfLift(int direction, int timer=0) {
+	// Check for function input error
+	if(direction == 1 || direction == -1 || direction == 0){
+		// Move at 100% power
+		motor[liftRight]	   	 = HALF_POWER * direction;
+		motor[liftLeft]          = HALF_POWER * direction;
 	}
 
 	if(timer != 0) {
@@ -453,22 +475,17 @@ task usercontrol()
         //Left side of the robot is controlled by the left joystick, Y-axis
         motor[frontLeftMotor]   = vexRT[Ch3];
         motor[backLeftMotor]    = vexRT[Ch3];
-////////////////////////////////////////////////////////////////////////
-//
-//    End of forward drive
-//
-////////////////////////////////////////////////////////////////////////
 
-//Right side of the robot is controlled by the right joystick, X-axis
+        //Right side of the robot is controlled by the right joystick, X-axis
         motor[frontRightMotor]	= vexRT[Ch1];
-        motor[backRightMotor] 	= vexRT[Ch1];
+        motor[backRightMotor] 	= vexRT[Ch1];   
 
-//Right side of the robot is controlled by the right joystick, X-axis
-        motor[frontRightMotor]	= vexRT[Ch4];
-        motor[backRightMotor] 	= vexRT[Ch4];
+        //Left side of the robot is controlled by the right joystick, X-axis
+        motor[frontLeftMotor]	= vexRT[Ch4];
+        motor[backLeftMotor] 	= vexRT[Ch4];
 ////////////////////////////////////////////////////////////////////////
 //
-//    End of sideways drive
+//    End of Drive
 //
 ////////////////////////////////////////////////////////////////////////
         
@@ -488,18 +505,16 @@ task usercontrol()
     moveLift(0);	//don't move arm
 
     }
-    if(vexRT[Btn8L]==1) //move arm up half speed
+    if(vexRT[Btn8L]==1)
     {
-    motor[liftLeft] = 64;
-    motorliftRight] = 64;
+    halfLift(1);    //move lift up at half speed
     }
-    if(vexRT[Btn8R]==1) //move arm down half speed
+    if(vexRT[Btn8R]==1)
     {
-    motor[liftLeft] = -64;
-    motorliftRight] = -64;    }
+    halfLift(-1);   //move lift down at half speed
+    }
     else {
-    motor[liftLeft] = 0;
-    motorliftRight] = 0;
+    halfLift(0);    //don't move lift
     }
 ////////////////////////////////////////////////////////////////////////
 //
