@@ -503,6 +503,7 @@ task usercontrol()
         //Left side of the robot is controlled by the right joystick, X-axis
         motor[frontLeftMotor]	= vexRT[Ch4];
         motor[backLeftMotor] 	= vexRT[Ch4];
+
 ////////////////////////////////////////////////////////////////////////
 //
 //    End of Drive
@@ -536,6 +537,7 @@ task usercontrol()
     else {
     halfLift(0);    //don't move lift
     }
+
 ////////////////////////////////////////////////////////////////////////
 //
 //    End of Lift
