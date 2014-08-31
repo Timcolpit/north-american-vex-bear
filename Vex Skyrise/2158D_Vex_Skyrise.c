@@ -23,8 +23,8 @@ short programChoice;
 
 //Competition Control and Duration Settings
 #pragma competitionControl(Competition)
-#pragma autonomousDuration(20)
-#pragma userControlDuration(120)
+#pragma autonomousDuration(15)
+#pragma userControlDuration(105)
 
 #include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
 
@@ -235,7 +235,7 @@ void moveIntake(int direction, int timer=0) {
 ////////////////////////////////////////////////////////////////////////
 
 
-//LCD Display code below 
+//LCD Display code below
 
 //Wait for Press--------------------------------------------------
 void waitForPress()
@@ -392,7 +392,7 @@ void pre_auton(){
 		}
 ///////////////////////////////////////////////////////////////////////
 //
-//    End of Case Selection 
+//    End of Case Selection
 //
 ////////////////////////////////////////////////////////////////////////
 		//Clear LCD
@@ -498,7 +498,7 @@ task usercontrol()
 
         //Right side of the robot is controlled by the right joystick, X-axis
         motor[frontRightMotor]	= vexRT[Ch1];
-        motor[backRightMotor] 	= vexRT[Ch1];   
+        motor[backRightMotor] 	= vexRT[Ch1];
 
         //Left side of the robot is controlled by the right joystick, X-axis
         motor[frontLeftMotor]	= vexRT[Ch4];
@@ -509,7 +509,7 @@ task usercontrol()
 //    End of Drive
 //
 ////////////////////////////////////////////////////////////////////////
-        
+
 
         /* Button Control */
 
